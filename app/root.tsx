@@ -1,7 +1,7 @@
 // root.tsx
 import React, { useContext, useEffect } from "react";
 import { withEmotionCache } from "@emotion/react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import {
   Links,
   LiveReload,
@@ -84,7 +84,9 @@ export default function App() {
     <Document>
       <ChakraProvider>
         <Header />
-        <Outlet />
+        <Box px={10} py={5}>
+          <Outlet />
+        </Box>
       </ChakraProvider>
     </Document>
   );
