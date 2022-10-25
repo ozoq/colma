@@ -4,12 +4,15 @@ import Link from "./Link";
 export default function Collection() {
   return (
     <Box m={2} width={250}>
-      <Box sx={{ position: "relative" }}>
-        <Link to="/2">
+      <Link to="/2">
+        <Box sx={{ position: "relative" }}>
           <Image height={180} borderRadius={"xl"} src="/collection.webp" />
-        </Link>
-        <Tag sx={{ position: "absolute", top: 2, right: 2 }}>43 items</Tag>
-      </Box>
+          <Flex sx={{ position: "absolute", top: 2, right: 2 }} gap={2}>
+            <Tag>books</Tag>
+            <Tag>43 items</Tag>
+          </Flex>
+        </Box>
+      </Link>
       <Flex alignItems={"center"} gap={2} justifyContent="space-between" p={2}>
         <Box>
           <Text fontSize="lg" fontWeight={"medium"}>

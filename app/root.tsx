@@ -84,7 +84,7 @@ export default function App() {
     <Document>
       <ChakraProvider>
         <Header />
-        <Box px={10} py={5}>
+        <Box p={12}>
           <Outlet />
         </Box>
       </ChakraProvider>
