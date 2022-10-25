@@ -84,7 +84,7 @@ export default function App() {
     <Document>
       <ChakraProvider>
         <Header />
-        <Box p={12}>
+        <Box p={12} maxWidth={1500} mx="auto">
           <Outlet />
         </Box>
       </ChakraProvider>

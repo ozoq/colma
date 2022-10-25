@@ -1,28 +1,40 @@
 import { Avatar, Box, Flex, Image, Tag, Text } from "@chakra-ui/react";
 import Link from "./Link";
 
-export default function Collection() {
+export default function Collection({
+  id,
+  category,
+  itemsAmount,
+  author,
+  name,
+  imageSrc,
+}) {
   return (
     <Box m={2} width={250}>
-      <Link to="/2">
-        <Box sx={{ position: "relative" }}>
-          <Image height={180} borderRadius={"xl"} src="/collection.webp" />
+      <Link to={`/collections/${id}`}>
+        <Box height={180} sx={{ position: "relative" }}>
+          <Image
+            height="100%"
+            width="100%"
+            borderRadius={"xl"}
+            src={imageSrc}
+          />
           <Flex sx={{ position: "absolute", top: 2, right: 2 }} gap={2}>
-            <Tag>books</Tag>
-            <Tag>43 items</Tag>
+            <Tag>{category}</Tag>
+            <Tag>{itemsAmount} items</Tag>
           </Flex>
         </Box>
       </Link>
       <Flex alignItems={"center"} gap={2} justifyContent="space-between" p={2}>
         <Box>
           <Text fontSize="lg" fontWeight={"medium"}>
-            <Link to="/2">My sci-fi books</Link>
+            <Link to={`/collections/${id}`}>{name}</Link>
           </Text>
           <Text fontSize="sm">
-            By <Link to="/1">john1997</Link>
+            By <Link to={`/users/${author.id}`}>{author.name}</Link>
           </Text>
         </Box>
-        <Link to="/1">
+        <Link to={`/users/${author.id}`}>
           <Avatar size="sm" />
         </Link>
       </Flex>
