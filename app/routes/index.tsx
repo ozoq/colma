@@ -1,33 +1,28 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import Collection from "~/components/Collection";
-import Item from "~/components/Item";
+import CollectionCard from "~/components/collection/CollectionCard";
+import ItemCard from "~/components/item/ItemCard";
+import type { CollectionType, ItemType } from "~/lib/data";
+import data from "~/lib/data";
 
-const largestCollections = [
-  {
-    id: 100,
-    category: "books",
-    itemsAmount: 43,
-    author: {
-      name: "john1997",
-      id: 200,
-    },
-    name: "My sci-fi books",
-    imageSrc:
-      "https://api.time.com/wp-content/uploads/2021/12/Neil-Jamieson-BOOKS.jpg",
-  },
-  {
-    id: 101,
-    category: "silverware",
-    itemsAmount: 6,
-    author: {
-      name: "restaurant44",
-      id: 201,
-    },
-    name: "Our kitchen stuff",
-    imageSrc:
-      "https://www.allrecipes.com/thmb/FcygenkGJWJAMA8FyR1kZ-upM-I=/1777x1333/smart/filters:no_upscale()/flatware-vs-silverware-GettyImages-1163969129-3x2-1-b25ada7504834e098ce10088a57618c2.jpg",
-  },
-];
+const largestCollections = data
+  .reduce(
+    (collections, user) => [...collections, ...user.collections],
+    [] as CollectionType[]
+  )
+  .sort((a, b) => a.items.length - b.items.length)
+  .slice(0, 5);
+
+const recentItems = data
+  .reduce(
+    (collections, user) => [...collections, ...user.collections],
+    [] as CollectionType[]
+  )
+  .reduce(
+    (items, collection) => [...items, ...collection.items],
+    [] as ItemType[]
+  )
+  .sort(() => 0.5 - Math.random())
+  .slice(0, 5);
 
 export default function Index() {
   return (
@@ -50,7 +45,7 @@ export default function Index() {
         </Heading>
         <Flex justifyContent={"center"} flexWrap="wrap">
           {largestCollections.map((collection) => (
-            <Collection key={collection.id} {...collection} />
+            <CollectionCard key={collection.id} collection={collection} />
           ))}
         </Flex>
       </Box>
@@ -59,12 +54,15 @@ export default function Index() {
         <Heading mb={5} textAlign="center" size="lg">
           Most recent items
         </Heading>
-        <Flex justifyContent={"center"} flexWrap="wrap">
-          <Item />
-          <Item />
-          <Item />
-          <Item />
-          <Item />
+        <Flex
+          justifyContent={"center"}
+          flexWrap="wrap"
+          gap={4}
+          alignItems="start"
+        >
+          {recentItems.map((item) => (
+            <ItemCard key={item.id} item={item} />
+          ))}
         </Flex>
       </Box>
     </Box>

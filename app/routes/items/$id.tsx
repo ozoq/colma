@@ -1,11 +1,12 @@
 import { Box, Button, Flex, Heading, Image, Tag, Text } from "@chakra-ui/react";
-import Collection from "~/components/Collection";
+import CollectionCard from "~/components/collection/CollectionCard";
 import Link from "~/components/Link";
 
 const collection = {
   id: 100,
   category: "books",
   itemsAmount: 43,
+  items: [1, 2, 3],
   author: {
     name: "john1997",
     id: 200,
@@ -103,7 +104,7 @@ export default function ItemPage() {
     <Box>
       <Heading mb={4}>{item.name}</Heading>
       <Flex shadow="base" borderRadius="lg" flexWrap="wrap">
-        <Collection {...collection} />
+        <CollectionCard collection={collection} />
         <CollectionItem />
       </Flex>
       <Box></Box>
