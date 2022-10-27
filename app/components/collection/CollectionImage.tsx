@@ -1,14 +1,13 @@
 import type { BoxProps } from "@chakra-ui/react";
 import { Box, Flex, Image, Tag } from "@chakra-ui/react";
-import type { CollectionType } from "~/lib/data";
+import type { LargestCollection } from "~/models/collection.server";
 
 export type CollectionImageProps = BoxProps & {
-  collection: CollectionType;
+  collection: Pick<LargestCollection, "imageUrl" | "itemsCount" | "topic">;
 };
 
 export default function CollectionImage(props: CollectionImageProps) {
-  const { imageSrc, category } = props.collection;
-  const itemsAmount = props.collection.items.length;
+  const { imageUrl, topic, itemsCount } = props.collection;
   return (
     <Box sx={{ position: "relative" }} {...props}>
       <Image
@@ -16,11 +15,11 @@ export default function CollectionImage(props: CollectionImageProps) {
         width="100%"
         fit="cover"
         borderRadius={"xl"}
-        src={imageSrc}
+        src={imageUrl}
       />
       <Flex sx={{ position: "absolute", top: 2, right: 2 }} gap={2}>
-        <Tag>{category}</Tag>
-        <Tag>{itemsAmount} items</Tag>
+        <Tag>{topic}</Tag>
+        <Tag>{itemsCount} items</Tag>
       </Flex>
     </Box>
   );

@@ -3,16 +3,14 @@ import { Icon } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import type { RecentItem } from "~/models/item.server";
 
 export type ItemLikeButtonProps = ButtonProps & {
-  item: {
-    id: number;
-    likesAmount: number;
-  };
+  item: Pick<RecentItem, "likes">;
 };
 
 export default function ItemLikeButton(props: ItemLikeButtonProps) {
-  const { likesAmount } = props.item;
+  const { likes } = props.item;
   const [isLiked, setIsLiked] = useState(false);
 
   function click() {
@@ -27,7 +25,7 @@ export default function ItemLikeButton(props: ItemLikeButtonProps) {
 
   return (
     <Button onClick={click} leftIcon={currentIcon}>
-      {likesAmount + Number(isLiked)}
+      {likes + Number(isLiked)}
     </Button>
   );
 }

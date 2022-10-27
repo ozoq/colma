@@ -1,32 +1,24 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import CollectionCard from "~/components/collection/CollectionCard";
 import ItemCard from "~/components/item/ItemCard";
-import type { CollectionType, ItemType } from "~/lib/data";
-import data from "~/lib/data";
+import { getLargestCollections } from "~/models/collection.server";
+import { getRecentItems } from "~/models/item.server";
 
-const largestCollections = data
-  .reduce(
-    (collections, user) => [...collections, ...user.collections],
-    [] as CollectionType[]
-  )
-  .sort((a, b) => a.items.length - b.items.length)
-  .slice(0, 5);
-
-const recentItems = data
-  .reduce(
-    (collections, user) => [...collections, ...user.collections],
-    [] as CollectionType[]
-  )
-  .reduce(
-    (items, collection) => [...items, ...collection.items],
-    [] as ItemType[]
-  )
-  .sort(() => 0.5 - Math.random())
-  .slice(0, 5);
+export async function loader() {
+  return json({
+    largestCollections: await getLargestCollections(),
+    recentItems: await getRecentItems(),
+  });
+}
 
 export default function Index() {
+  const { largestCollections, recentItems } = useLoaderData<typeof loader>();
+
   return (
     <Box>
+      {/* Block one */}
       <Box mb={12}>
         <Heading mb={5} textAlign="center" size="md">
           Welcome to Colmanag!
@@ -39,6 +31,7 @@ export default function Index() {
         </Flex>
       </Box>
 
+      {/* Block two */}
       <Box mb={12}>
         <Heading mb={5} textAlign="center" size="lg">
           Explore Our Largest Collections
@@ -50,6 +43,7 @@ export default function Index() {
         </Flex>
       </Box>
 
+      {/* Block three */}
       <Box>
         <Heading mb={5} textAlign="center" size="lg">
           Most recent items

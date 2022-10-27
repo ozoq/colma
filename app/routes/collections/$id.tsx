@@ -1,23 +1,22 @@
 import { Box, Flex, Heading } from "@chakra-ui/react";
-import { useParams } from "@remix-run/react";
+import type { LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { useCatch, useLoaderData } from "@remix-run/react";
 import CollectionDescription from "~/components/collection/CollectionDescription";
 import CollectionImage from "~/components/collection/CollectionImage";
 import ItemCard from "~/components/item/ItemCard";
-import type { CollectionType } from "~/lib/data";
-import data from "~/lib/data";
+import { getCollection } from "~/models/collection.server";
+
+export async function loader({ params }: LoaderArgs) {
+  const collection = await getCollection({ id: Number(params.id) });
+  if (!collection) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return json({ collection });
+}
 
 export default function CollectionPage() {
-  const params = useParams();
-
-  const collection = data
-    .reduce(
-      (collections, user) => [...collections, ...user.collections],
-      [] as CollectionType[]
-    )
-    .find((collection) => collection.id === Number(params.id));
-
-  if (!collection) return "Not found";
-
+  const { collection } = useLoaderData<typeof loader>();
   return (
     <Box>
       <Heading mb={4}>{collection.name}</Heading>
@@ -30,4 +29,29 @@ export default function CollectionPage() {
       </Flex>
     </Box>
   );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+    <Box>
+      <Heading mb={5} textAlign="center" size="md">
+        Something went wrong..
+      </Heading>
+    </Box>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  if (caught.status === 404) {
+    return (
+      <Box>
+        <Heading mb={5} textAlign="center" size="md">
+          Collection not found :(
+        </Heading>
+      </Box>
+    );
+  }
+  throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }

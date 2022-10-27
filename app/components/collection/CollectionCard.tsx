@@ -1,11 +1,11 @@
 import type { BoxProps } from "@chakra-ui/react";
-import { Avatar, Box, Flex, Image, Tag, Text } from "@chakra-ui/react";
-import type { CollectionType } from "~/lib/data";
+import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import type { LargestCollection } from "~/models/collection.server";
 import Link from "../Link";
 import CollectionImage from "./CollectionImage";
 
 export type CollectionCardProps = BoxProps & {
-  collection: CollectionType;
+  collection: LargestCollection;
 };
 
 const generateUserUrl = (userId: number) => `/users/${userId}`;
@@ -26,7 +26,7 @@ export default function CollectionCard(props: CollectionCardProps) {
             <Link to={generateCollectionUrl(id)}>{name}</Link>
           </Text>
           <Text fontSize="sm">
-            By <Link to={generateUserUrl(author.id)}>{author.name}</Link>
+            By <Link to={generateUserUrl(author.id)}>{author.nickname}</Link>
           </Text>
         </Box>
         <Link to={generateUserUrl(author.id)}>
