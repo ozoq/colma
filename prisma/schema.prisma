@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ItemFieldType {
+  INTEGER
+  STRING
+  MULTILINE
+  BOOLEAN
+  DATE
+  // Create something like collection field enum values with one to many to collection field
+  ENUM
+}
+
+enum CollectionTopic {
+  books
+  movies
+}
+
+model ItemFieldDefinition {
+  id           Int              @id @default(autoincrement())
+  name         String
+  type         ItemFieldType
+  fieldValues  ItemFieldValue[]
+  collection   Collection       @relation(fields: [collectionId], references: [id])
+  collectionId Int
+}
+
+model ItemFieldValue {
+  id           Int                 @id @default(autoincrement())
+  value        String
+  definition   ItemFieldDefinition @relation(fields: [definitionId], references: [id])
+  definitionId Int
+  item         Item                @relation(fields: [itemId], references: [id])
+  itemId       Int
+}
+
+model Collection {
+  id          Int                   @id @default(autoincrement())
+  name        String
+  description String
+  imageUrl    String
+  topic       CollectionTopic
+  fields      ItemFieldDefinition[]
+  items       Item[]
+  author      User                  @relation(fields: [authorId], references: [id])
+  authorId    Int
+}
+
+model ItemTag {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  items Item[]
+}
+
+model Item {
+  id           Int              @id @default(autoincrement())
+  name         String
+  collection   Collection       @relation(fields: [collectionId], references: [id])
+  collectionId Int
+  tags         ItemTag[]
+  fields       ItemFieldValue[]
+  likedBy      User[]
+  comments     Comment[]
+  updatedAt    DateTime         @default(now()) @updatedAt
+}
+
+model User {
+  id          Int          @id @default(autoincrement())
+  nickname    String       @unique
+  collections Collection[]
+  likedItems  Item[]
+  comments    Comment[]
+}
+
+model Comment {
+  id       Int    @id @default(autoincrement())
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId Int
+  item     Item   @relation(fields: [itemId], references: [id])
+  itemId   Int
+  body     String
+}
