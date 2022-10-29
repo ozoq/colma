@@ -2,10 +2,10 @@ import type { BoxProps } from "@chakra-ui/react";
 import { Td } from "@chakra-ui/react";
 import { Table, TableContainer, Tbody, Tr } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
-import type { RecentItem } from "~/models/item.server";
+import type { BasicItemType } from "~/database/shapes/basicItem";
 
 export type ItemFieldsProps = BoxProps & {
-  item: Pick<RecentItem, "fields">;
+  item: Pick<BasicItemType, "fields">;
 };
 
 export default function ItemFields(props: ItemFieldsProps) {

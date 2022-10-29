@@ -3,8 +3,8 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import CollectionCard from "~/components/collection/CollectionCard";
 import ItemCard from "~/components/item/ItemCard";
-import { getLargestCollections } from "~/models/collection.server";
-import { getRecentItems } from "~/models/item.server";
+import { getLargestCollections } from "~/database/api/collection";
+import { getRecentItems } from "~/database/api/item";
 
 export async function loader() {
   return json({

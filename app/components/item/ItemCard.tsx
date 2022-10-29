@@ -6,10 +6,10 @@ import { Box } from "@chakra-ui/react";
 import ItemFields from "./ItemFields";
 import ItemTags from "./ItemTags";
 import ItemLikeButton from "./ItemLikeButton";
-import type { RecentItem } from "~/models/item.server";
+import type { BasicItemType } from "~/database/shapes/basicItem";
 
 export type ItemCardProps = BoxProps & {
-  item: RecentItem;
+  item: BasicItemType;
 };
 
 export default function ItemCard(props: ItemCardProps) {

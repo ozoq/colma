@@ -3,10 +3,10 @@ import { Icon } from "@chakra-ui/react";
 import { Button } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import type { RecentItem } from "~/models/item.server";
+import type { BasicItemType } from "~/database/shapes/basicItem";
 
 export type ItemLikeButtonProps = ButtonProps & {
-  item: Pick<RecentItem, "likes">;
+  item: Pick<BasicItemType, "likes">;
 };
 
 export default function ItemLikeButton(props: ItemLikeButtonProps) {

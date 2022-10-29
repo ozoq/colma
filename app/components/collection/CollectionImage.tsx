@@ -1,9 +1,9 @@
 import type { BoxProps } from "@chakra-ui/react";
 import { Box, Flex, Image, Tag } from "@chakra-ui/react";
-import type { LargestCollection } from "~/models/collection.server";
+import type { BasicCollectionType } from "~/database/shapes/basicCollection";
 
 export type CollectionImageProps = BoxProps & {
-  collection: Pick<LargestCollection, "imageUrl" | "itemsCount" | "topic">;
+  collection: Pick<BasicCollectionType, "imageUrl" | "itemsCount" | "topic">;
 };
 
 export default function CollectionImage(props: CollectionImageProps) {

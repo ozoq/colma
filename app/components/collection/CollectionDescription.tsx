@@ -1,9 +1,9 @@
 import type { BoxProps } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
-import type { CollectionType } from "~/lib/data";
+import type { FullCollectionType } from "~/database/shapes/fullCollection";
 
 export type CollectionDescriptionProps = BoxProps & {
-  collection: CollectionType;
+  collection: Pick<FullCollectionType, "description">;
 };
 
 export default function CollectionDescription(

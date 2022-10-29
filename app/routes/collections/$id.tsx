@@ -5,10 +5,10 @@ import { useCatch, useLoaderData } from "@remix-run/react";
 import CollectionDescription from "~/components/collection/CollectionDescription";
 import CollectionImage from "~/components/collection/CollectionImage";
 import ItemCard from "~/components/item/ItemCard";
-import { getCollection } from "~/models/collection.server";
+import { getCollectionById } from "~/database/api/collection";
 
 export async function loader({ params }: LoaderArgs) {
-  const collection = await getCollection({ id: Number(params.id) });
+  const collection = await getCollectionById(Number(params.id));
   if (!collection) {
     throw new Response("Not Found", { status: 404 });
   }
