@@ -25,33 +25,33 @@ enum CollectionTopic {
   movies
 }
 
-model ItemFieldDefinition {
-  id           Int              @id @default(autoincrement())
+model FieldHead {
+  id           Int           @id @default(autoincrement())
   name         String
   type         ItemFieldType
-  fieldValues  ItemFieldValue[]
-  collection   Collection       @relation(fields: [collectionId], references: [id])
+  cells        FieldCell[]
+  collection   Collection    @relation(fields: [collectionId], references: [id])
   collectionId Int
 }
 
-model ItemFieldValue {
-  id           Int                 @id @default(autoincrement())
-  value        String
-  definition   ItemFieldDefinition @relation(fields: [definitionId], references: [id])
-  definitionId Int
-  item         Item                @relation(fields: [itemId], references: [id])
-  itemId       Int
+model FieldCell {
+  id     Int       @id @default(autoincrement())
+  value  String
+  head   FieldHead @relation(fields: [headId], references: [id])
+  headId Int
+  item   Item      @relation(fields: [itemId], references: [id])
+  itemId Int
 }
 
 model Collection {
-  id          Int                   @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   name        String
   description String
   imageUrl    String
   topic       CollectionTopic
-  fields      ItemFieldDefinition[]
+  fieldHeads  FieldHead[]
   items       Item[]
-  author      User                  @relation(fields: [authorId], references: [id])
+  author      User            @relation(fields: [authorId], references: [id])
   authorId    Int
 }
 
@@ -62,15 +62,15 @@ model ItemTag {
 }
 
 model Item {
-  id           Int              @id @default(autoincrement())
+  id           Int         @id @default(autoincrement())
   name         String
-  collection   Collection       @relation(fields: [collectionId], references: [id])
+  collection   Collection  @relation(fields: [collectionId], references: [id])
   collectionId Int
   tags         ItemTag[]
-  fields       ItemFieldValue[]
+  fieldCells   FieldCell[]
   likedBy      User[]
   comments     Comment[]
-  updatedAt    DateTime         @default(now()) @updatedAt
+  updatedAt    DateTime    @default(now()) @updatedAt
 }
 
 model User {

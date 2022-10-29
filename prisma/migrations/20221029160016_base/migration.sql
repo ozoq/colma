@@ -5,23 +5,23 @@ CREATE TYPE "ItemFieldType" AS ENUM ('INTEGER', 'STRING', 'MULTILINE', 'BOOLEAN'
 CREATE TYPE "CollectionTopic" AS ENUM ('books', 'movies');
 
 -- CreateTable
-CREATE TABLE "ItemFieldDefinition" (
+CREATE TABLE "FieldHead" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "type" "ItemFieldType" NOT NULL,
     "collectionId" INTEGER NOT NULL,
 
-    CONSTRAINT "ItemFieldDefinition_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "FieldHead_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "ItemFieldValue" (
+CREATE TABLE "FieldCell" (
     "id" SERIAL NOT NULL,
     "value" TEXT NOT NULL,
-    "definitionId" INTEGER NOT NULL,
+    "headId" INTEGER NOT NULL,
     "itemId" INTEGER NOT NULL,
 
-    CONSTRAINT "ItemFieldValue_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "FieldCell_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -103,13 +103,13 @@ CREATE UNIQUE INDEX "_ItemToUser_AB_unique" ON "_ItemToUser"("A", "B");
 CREATE INDEX "_ItemToUser_B_index" ON "_ItemToUser"("B");
 
 -- AddForeignKey
-ALTER TABLE "ItemFieldDefinition" ADD CONSTRAINT "ItemFieldDefinition_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "Collection"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "FieldHead" ADD CONSTRAINT "FieldHead_collectionId_fkey" FOREIGN KEY ("collectionId") REFERENCES "Collection"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ItemFieldValue" ADD CONSTRAINT "ItemFieldValue_definitionId_fkey" FOREIGN KEY ("definitionId") REFERENCES "ItemFieldDefinition"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "FieldCell" ADD CONSTRAINT "FieldCell_headId_fkey" FOREIGN KEY ("headId") REFERENCES "FieldHead"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ItemFieldValue" ADD CONSTRAINT "ItemFieldValue_itemId_fkey" FOREIGN KEY ("itemId") REFERENCES "Item"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "FieldCell" ADD CONSTRAINT "FieldCell_itemId_fkey" FOREIGN KEY ("itemId") REFERENCES "Item"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Collection" ADD CONSTRAINT "Collection_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

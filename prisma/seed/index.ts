@@ -1,22 +1,22 @@
-import seedUsers from "./seeders/user";
 import seedCollections from "./seeders/collection";
-import seedFieldDefinitions from "./seeders/definition";
+import seedFieldCells from "./seeders/fieldCell";
+import seedFieldHeads from "./seeders/fieldHead";
 import seedItems from "./seeders/item";
 import seedTags from "./seeders/tag";
-import seedFieldValues from "./seeders/value";
+import seedUsers from "./seeders/user";
 import { db } from "./utils";
 
+const seedersInOrder = [
+  seedUsers,
+  seedCollections,
+  seedFieldHeads,
+  seedItems,
+  seedTags,
+  seedFieldCells,
+];
+
 export default async function seed() {
-  const seeders: Function[] = [];
-
-  seeders.push(seedUsers);
-  seeders.push(seedCollections);
-  seeders.push(seedFieldDefinitions);
-  seeders.push(seedItems);
-  seeders.push(seedTags);
-  seeders.push(seedFieldValues);
-
-  for (let seeder of seeders) {
+  for (let seeder of seedersInOrder) {
     await seeder();
   }
 }
