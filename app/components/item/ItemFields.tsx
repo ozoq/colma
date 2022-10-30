@@ -1,31 +1,28 @@
-import type { BoxProps } from "@chakra-ui/react";
-import { Td } from "@chakra-ui/react";
-import { Table, TableContainer, Tbody, Tr } from "@chakra-ui/react";
+import type { SimpleGridProps } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import type { BasicItemType } from "~/database/shapes/basicItem";
+import ItemField from "./ItemField";
 
-export type ItemFieldsProps = BoxProps & {
+export type ItemFieldsProps = SimpleGridProps & {
   item: Pick<BasicItemType, "fields">;
 };
 
 export default function ItemFields(props: ItemFieldsProps) {
   const { fields } = props.item;
   return (
-    <Box gap={2} flexWrap="wrap" {...props}>
-      <TableContainer>
-        <Table>
-          <Tbody>
-            {Object.entries(fields).map(
-              ([fieldName, { value: fieldValue }]) => (
-                <Tr key={fieldName} gap={2} mb={2}>
-                  <Td fontWeight={"medium"}>{fieldName}</Td>
-                  <Td>{fieldValue}</Td>
-                </Tr>
-              )
-            )}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Box>
+    <SimpleGrid {...props} templateColumns="1fr 2fr" gap={2}>
+      {fields.map((field) => (
+        <>
+          <Text key={field.name} fontWeight={"medium"}>
+            {field.name}
+          </Text>
+          <Box justifySelf="flex-start">
+            <ItemField field={field} />
+          </Box>
+        </>
+      ))}
+    </SimpleGrid>
   );
 }
