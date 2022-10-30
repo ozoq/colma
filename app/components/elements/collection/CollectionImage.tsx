@@ -16,6 +16,9 @@ export default function CollectionImage(props: CollectionImageProps) {
         fit="cover"
         borderRadius={"xl"}
         src={imageUrl}
+        border="1px"
+        borderColor={"gray.400"}
+        shadow={"md"}
       />
       <Flex sx={{ position: "absolute", top: 2, right: 2 }} gap={2}>
         <Tag>{topic}</Tag>

@@ -8,7 +8,7 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { MoonIcon, SearchIcon } from "@chakra-ui/icons";
-import Link from "./Link";
+import Link from "../elements/shared/Link";
 
 export default function Header() {
   return (

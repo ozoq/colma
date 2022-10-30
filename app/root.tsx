@@ -13,7 +13,7 @@ import {
 import type { MetaFunction, LinksFunction } from "@remix-run/node"; // Depends on the runtime you choose
 
 import { ServerStyleContext, ClientStyleContext } from "./lib/chakra/context";
-import Header from "./components/Header";
+import Header from "./components/layout/Header";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",

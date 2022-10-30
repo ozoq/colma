@@ -2,13 +2,11 @@ import type { BoxProps } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
 import type { FullCollectionType } from "~/database/shapes/fullCollection";
 
-export type CollectionDescriptionProps = BoxProps & {
+export type DescriptionBlockProps = BoxProps & {
   collection: Pick<FullCollectionType, "description">;
 };
 
-export default function CollectionDescription(
-  props: CollectionDescriptionProps
-) {
+export default function DescriptionBlock(props: DescriptionBlockProps) {
   return (
     <Box
       borderBottom="1px"

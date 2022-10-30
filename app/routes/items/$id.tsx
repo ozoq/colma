@@ -1,113 +1,57 @@
-import { Box, Button, Flex, Heading, Image, Tag, Text } from "@chakra-ui/react";
-import CollectionCard from "~/components/collection/CollectionCard";
-import Link from "~/components/Link";
+import type { LoaderArgs } from "@remix-run/node";
+import { Box, Flex, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import { json } from "@remix-run/node";
+import { useCatch, useLoaderData } from "@remix-run/react";
+import { getItemById } from "~/database/api/item";
+import TagsRow from "~/components/elements/item/TagsRow";
+import LikeRow from "~/components/elements/item/LikeRow";
+import CollectionPiece from "~/components/views/blocks/CollectionPiece";
+import ItemDisplay from "~/components/views/blocks/ItemDisplay";
+import Comments from "~/components/views/blocks/Comments";
+import ErrorOther from "~/components/views/errors/ErrorOther";
+import Error404 from "~/components/views/errors/Error404";
 
-const collection = {
-  id: 100,
-  category: "books",
-  itemsAmount: 43,
-  items: [1, 2, 3],
-  author: {
-    name: "john1997",
-    id: 200,
-  },
-  name: "My sci-fi books",
-  imageSrc:
-    "https://api.time.com/wp-content/uploads/2021/12/Neil-Jamieson-BOOKS.jpg",
-  description:
-    "Suspendisse vitae elit nec ipsum porta iaculis id vitae turpis. In hac habitasse platea dictumst. In ornare, massa accumsan mollis ullamcorper, augue quam imperdiet elit, sit amet vulputate leo dui vel orci. Suspendisse sed est sed ipsum condimentum rutrum nec eu nunc. Maecenas tempor velit sed turpis rhoncus, dapibus commodo mi faucibus. Curabitur aliquet hendrerit elit, nec fringilla orci ultricies eu. Nam nunc leo, vehicula quis risus eu, aliquam iaculis lectus. Quisque enim lectus, pulvinar id est ut, volutpat molestie eros. Aliquam erat volutpat. Suspendisse massa mi, imperdiet ut luctus vel, hendrerit non urna. Aenean nec leo lectus. Sed lobortis sem et iaculis elementum. Fusce augue ligula, dignissim finibus sem et, hendrerit semper dolor. Praesent ut hendrerit sapien. Sed consectetur mattis tortor sed aliquam.",
-};
-
-const item = {
-  name: "The time machine",
-  likesAmount: 543,
-  commentsAmount: 15,
-  tags: [
-    "sci-fi",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-    "Cool Books",
-    "Really Interesting",
-  ],
-  fields: {
-    Author: "John Doe",
-    Date: "04/03/1955",
-    Pages: 544,
-  },
-};
-
-const CollectionImage = () => (
-  <Box height={300} sx={{ position: "relative" }} mb={4}>
-    <Image
-      height="100%"
-      width="100%"
-      fit="cover"
-      borderRadius={"xl"}
-      src={collection.imageSrc}
-    />
-    <Flex sx={{ position: "absolute", top: 2, right: 2 }} gap={2}>
-      <Tag>{collection.category}</Tag>
-      <Tag>{collection.itemsAmount} items</Tag>
-    </Flex>
-  </Box>
-);
-
-const CollectionItem = () => (
-  <Flex flex={1} flexDirection="column" justifyContent="space-between" p={4}>
-    <Flex gap={2} flexWrap="wrap">
-      {item.tags.map((tag) => (
-        <Link key={tag} to={`/search?byTag=${tag}`}>
-          <Tag colorScheme={"cyan"}>{tag}</Tag>
-        </Link>
-      ))}
-    </Flex>
-    <Box flex={1} my={2} p={2}>
-      <Heading size="md" mb={3}>
-        The time machine
-      </Heading>
-      {Object.entries(item.fields).map(([fieldName, fieldValue]) => (
-        <Flex key={fieldName} gap={2} mb={2}>
-          <Tag>{fieldName}</Tag>
-          <Text>{fieldValue}</Text>
-        </Flex>
-      ))}
-    </Box>
-    <Flex gap={2} ml="auto">
-      <Tag colorScheme={"red"} whiteSpace="nowrap">
-        {item.likesAmount} likes
-      </Tag>
-      <Tag colorScheme={"blue"} whiteSpace="nowrap">
-        {item.commentsAmount} comments
-      </Tag>
-    </Flex>
-  </Flex>
-);
+export async function loader({ params }: LoaderArgs) {
+  const item = await getItemById(Number(params.id));
+  if (!item) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return json({ item });
+}
 
 export default function ItemPage() {
+  const { item } = useLoaderData<typeof loader>();
   return (
-    <Box>
-      <Heading mb={4}>{item.name}</Heading>
-      <Flex shadow="base" borderRadius="lg" flexWrap="wrap">
-        <CollectionCard collection={collection} />
-        <CollectionItem />
+    <Stack>
+      <Flex justifyContent="space-between">
+        <Heading mb={4}>{item.name}</Heading>
+        <Flex gap={2}>
+          <TagsRow item={item} />
+          <Flex justifyContent="flex-end" gap={2} alignItems="center">
+            <LikeRow item={{ likes: 0 }} />
+          </Flex>
+        </Flex>
       </Flex>
-      <Box></Box>
-    </Box>
+      <SimpleGrid gridTemplateColumns="1fr 2fr" gap={4}>
+        <ItemDisplay item={item} />
+        <Box>
+          <CollectionPiece collection={item.collection} mb={8} />
+          <Comments item={item} />
+        </Box>
+      </SimpleGrid>
+    </Stack>
   );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return <ErrorOther />;
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  if (caught.status === 404) {
+    return <Error404 />;
+  }
+  throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }

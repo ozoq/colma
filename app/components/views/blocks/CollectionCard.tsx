@@ -1,25 +1,19 @@
 import type { BoxProps } from "@chakra-ui/react";
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
+import CollectionImageLinked from "~/components/elements/collection/CollectionImageLinked";
+import Link from "~/components/elements/shared/Link";
 import type { BasicCollectionType } from "~/database/shapes/basicCollection";
-import Link from "../Link";
-import CollectionImage from "./CollectionImage";
+import { generateCollectionUrl, generateUserUrl } from "~/utils/URLs";
 
 export type CollectionCardProps = BoxProps & {
   collection: BasicCollectionType;
 };
 
-const generateUserUrl = (userId: number) => `/users/${userId}`;
-
-const generateCollectionUrl = (collectionId: number) =>
-  `/collections/${collectionId}`;
-
 export default function CollectionCard(props: CollectionCardProps) {
   const { id, name, authorId, authorName } = props.collection;
   return (
-    <Box m={2} width={250}>
-      <Link to={generateCollectionUrl(id)}>
-        <CollectionImage height={180} collection={props.collection} />
-      </Link>
+    <Box m={2} width={250} {...props}>
+      <CollectionImageLinked collection={props.collection} />
       <Flex alignItems={"center"} gap={2} justifyContent="space-between" p={2}>
         <Box>
           <Text fontSize="lg" fontWeight={"medium"}>

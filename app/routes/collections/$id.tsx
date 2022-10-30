@@ -1,10 +1,11 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
-import CollectionDescription from "~/components/collection/CollectionDescription";
-import CollectionImage from "~/components/collection/CollectionImage";
-import ItemCard from "~/components/item/ItemCard";
+import CollectionDisplay from "~/components/views/blocks/CollectionDisplay";
+import ItemCard from "~/components/views/blocks/ItemCard";
+import Error404 from "~/components/views/errors/Error404";
+import ErrorOther from "~/components/views/errors/ErrorOther";
 import { getCollectionById } from "~/database/api/collection";
 
 export async function loader({ params }: LoaderArgs) {
@@ -19,10 +20,8 @@ export default function CollectionPage() {
   const { collection } = useLoaderData<typeof loader>();
   return (
     <Box>
-      <Heading mb={4}>{collection.name}</Heading>
-      <CollectionImage collection={collection} height={300} mb={6} />
-      <CollectionDescription collection={collection} mb={6} />
-      <Flex justifyContent={"center"} flexWrap="wrap">
+      <CollectionDisplay collection={collection} />
+      <Flex justifyContent={"center"} flexWrap="wrap" alignItems="center">
         {collection.items.map((item) => (
           <ItemCard key={item.id} item={item} m={4} />
         ))}
@@ -33,25 +32,14 @@ export default function CollectionPage() {
 
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
-  return (
-    <Box>
-      <Heading mb={5} textAlign="center" size="md">
-        Something went wrong..
-      </Heading>
-    </Box>
-  );
+  return <ErrorOther />;
 }
 
+// TODO: try to transfer to root.tsx
 export function CatchBoundary() {
   const caught = useCatch();
   if (caught.status === 404) {
-    return (
-      <Box>
-        <Heading mb={5} textAlign="center" size="md">
-          Collection not found :(
-        </Heading>
-      </Box>
-    );
+    return <Error404 />;
   }
   throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }

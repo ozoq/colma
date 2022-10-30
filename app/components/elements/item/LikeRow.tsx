@@ -5,11 +5,11 @@ import { useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 import type { BasicItemType } from "~/database/shapes/basicItem";
 
-export type ItemLikeButtonProps = ButtonProps & {
+export type LikeRowProps = ButtonProps & {
   item: Pick<BasicItemType, "likes">;
 };
 
-export default function ItemLikeButton(props: ItemLikeButtonProps) {
+export default function LikeRow(props: LikeRowProps) {
   const { likes } = props.item;
   const [isLiked, setIsLiked] = useState(false);
 
@@ -24,7 +24,7 @@ export default function ItemLikeButton(props: ItemLikeButtonProps) {
   );
 
   return (
-    <Button onClick={click} leftIcon={currentIcon}>
+    <Button onClick={click} leftIcon={currentIcon} {...props}>
       {likes + Number(isLiked)}
     </Button>
   );

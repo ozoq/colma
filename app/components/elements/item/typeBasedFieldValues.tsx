@@ -1,6 +1,6 @@
 import {
   Button,
-  Link,
+  Link as ChakraLink,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -12,33 +12,32 @@ import {
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
-import React from "react";
-import type { FieldCellType } from "~/database/shapes/fieldCell";
 import moment from "moment";
+import type { FieldCellType } from "~/database/shapes/fieldCell";
 
-export default function ItemField({ field }: { field: FieldCellType }) {
-  const element = React.createElement(fieldComponents[field.type], { field });
-  return <>{element}</>;
-}
+export type TypedFieldProps = { field: FieldCellType };
 
-const fieldComponents = {
-  INTEGER: IntegerField,
-  STRING: StringField,
-  MULTILINE: MultilineField,
-  BOOLEAN: BooleanField,
-  DATE: DateField,
-  ENUM: EnumField,
-};
-
-function IntegerField({ field }: { field: FieldCellType }) {
+export function IntegerField({ field }: TypedFieldProps) {
   return <Tag>{field.value}</Tag>;
 }
 
-function StringField({ field }: { field: FieldCellType }) {
+export function StringField({ field }: TypedFieldProps) {
   return <Text>{field.value}</Text>;
 }
 
-function MultilineField({ field }: { field: FieldCellType }) {
+export function BooleanField({ field }: TypedFieldProps) {
+  return <Tag>{field.value === "true" ? "Yes" : "No"}</Tag>;
+}
+
+export function DateField({ field }: TypedFieldProps) {
+  return <Tag>{moment(field.value).calendar()}</Tag>;
+}
+
+export function EnumField({ field }: TypedFieldProps) {
+  return <Tag>{field.value}</Tag>;
+}
+
+export function MultilineField({ field }: TypedFieldProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const MAX_LENGTH_DISPLAYED = 50;
   if (field.value.length > MAX_LENGTH_DISPLAYED) {
@@ -46,9 +45,9 @@ function MultilineField({ field }: { field: FieldCellType }) {
       <>
         <Text>
           {`${field.value.slice(0, MAX_LENGTH_DISPLAYED)}...  `}
-          <Link onClick={onOpen} fontWeight="bold" color="gray.500">
+          <ChakraLink onClick={onOpen} fontWeight="bold" color="gray.500">
             view more
-          </Link>
+          </ChakraLink>
         </Text>
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
@@ -69,16 +68,4 @@ function MultilineField({ field }: { field: FieldCellType }) {
     );
   }
   return <Text>{field.value}</Text>;
-}
-
-function BooleanField({ field }: { field: FieldCellType }) {
-  return <Tag>{field.value === "true" ? "Yes" : "No"}</Tag>;
-}
-
-function DateField({ field }: { field: FieldCellType }) {
-  return <Tag>{moment(field.value).calendar()}</Tag>;
-}
-
-function EnumField({ field }: { field: FieldCellType }) {
-  return <Tag>{field.value}</Tag>;
 }
