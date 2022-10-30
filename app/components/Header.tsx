@@ -8,12 +8,15 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { MoonIcon, SearchIcon } from "@chakra-ui/icons";
+import Link from "./Link";
 
 export default function Header() {
   return (
     <Box borderBottom="1px" borderColor={"gray.100"}>
       <Flex gap="5" padding="7">
-        <Image src="/colmanag.svg" alt="Colmanag" />
+        <Link to="/" minWidth="151px">
+          <Image src="/colmanag.svg" alt="Colmanag" height="100%" />
+        </Link>
         <InputGroup size="md">
           <Input borderRadius={"full"} placeholder="Search" />
           <InputRightElement>
