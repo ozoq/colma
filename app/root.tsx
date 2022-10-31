@@ -83,9 +83,11 @@ export default function App() {
   return (
     <Document>
       <ChakraProvider>
-        <Header />
-        <Box p={12} maxWidth={1500} mx="auto">
-          <Outlet />
+        <Box minH="100vh">
+          <Header />
+          <Box p={12} maxW={1500} mx="auto">
+            <Outlet />
+          </Box>
         </Box>
       </ChakraProvider>
     </Document>

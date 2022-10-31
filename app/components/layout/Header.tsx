@@ -2,6 +2,7 @@ import { Box, Button, Flex, Image } from "@chakra-ui/react";
 import { MoonIcon } from "@chakra-ui/icons";
 import Link from "../elements/shared/Link";
 import SearchBar from "../elements/header/SearchBar";
+import ButtonAsLink from "../elements/shared/ButtonAsLink";
 
 export default function Header() {
   return (
@@ -12,10 +13,12 @@ export default function Header() {
         </Link>
         <SearchBar />
         <Flex gap="3">
-          <Button borderRadius={"full"} colorScheme="red">
+          <ButtonAsLink borderRadius={"full"} colorScheme="red" to="/login">
             Log in
-          </Button>
-          <Button borderRadius={"full"}>Sign up</Button>
+          </ButtonAsLink>
+          <ButtonAsLink borderRadius={"full"} to="/signup">
+            Sign up
+          </ButtonAsLink>
         </Flex>
         <Flex gap="3" alignItems={"center"}>
           <Button
