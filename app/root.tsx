@@ -85,7 +85,13 @@ export default function App() {
       <ChakraProvider>
         <Flex h="100vh" direction={"column"}>
           <Header />
-          <Box p={12} maxW={1500} mx="auto" flex={1}>
+          <Box
+            py={12}
+            mx={{ base: "4", md: "12" }}
+            maxW={1500}
+            flex={1}
+            alignSelf="center"
+          >
             <Outlet />
           </Box>
         </Flex>

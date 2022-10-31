@@ -22,18 +22,23 @@ export async function loader({ params }: LoaderArgs) {
 export default function ItemPage() {
   const { item } = useLoaderData<typeof loader>();
   return (
-    <Stack>
-      <Flex justifyContent="space-between">
-        <Heading mb={4}>{item.name}</Heading>
-        <Flex gap={2}>
-          <TagsRow item={item} />
-          <Flex justifyContent="flex-end" gap={2} alignItems="center">
-            <LikeRow item={{ likes: 0 }} />
-          </Flex>
+    <Stack spacing={6}>
+      <Stack pb={2} borderBottom="1px" borderColor="gray.100" spacing={8}>
+        <Heading>{item.name}</Heading>
+        <Flex justifyContent="space-between" gap={4} alignItems="bottom">
+          <TagsRow justifyContent="start" item={item} />
+          <LikeRow item={{ likes: 12 }} />
         </Flex>
-      </Flex>
-      <SimpleGrid gridTemplateColumns="1fr 2fr" gap={4}>
-        <ItemDisplay item={item} />
+      </Stack>
+
+      <SimpleGrid gridTemplateColumns={{ base: "1fr", md: "1fr 2fr" }} gap={4}>
+        <ItemDisplay
+          item={item}
+          pr={4}
+          mr={2}
+          borderRight="1px"
+          borderColor="gray.100"
+        />
         <Box>
           <CollectionPiece collection={item.collection} mb={8} />
           <Comments item={item} />

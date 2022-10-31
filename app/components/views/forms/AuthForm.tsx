@@ -46,7 +46,7 @@ export function Form({
   errorMessage: string;
 }) {
   return (
-    <BorderedBox p={8} width="400px">
+    <BorderedBox p={8} width="400">
       <form method="post" action={action}>
         <Stack spacing={4}>
           {errorMessage && (

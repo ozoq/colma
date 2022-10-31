@@ -13,8 +13,12 @@ export default function CollectionDisplay(props: CollectionDisplayProps) {
   const { name } = collection;
   return (
     <Box {...props}>
-      <Heading mb={4}>{name}</Heading>
-      <CollectionImage collection={collection} height={300} mb={6} />
+      <Box mx={8}>
+        <Heading mb={4} size="lg">
+          {name}
+        </Heading>
+        <CollectionImage collection={collection} height={300} mb={6} />
+      </Box>
       <DescriptionBlock collection={collection} mb={6} />
     </Box>
   );
