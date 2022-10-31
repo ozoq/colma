@@ -57,7 +57,8 @@ CREATE TABLE "Item" (
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
-    "nickname" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "passwordHash" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -88,7 +89,7 @@ CREATE TABLE "_ItemToUser" (
 CREATE UNIQUE INDEX "ItemTag_name_key" ON "ItemTag"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_nickname_key" ON "User"("nickname");
+CREATE UNIQUE INDEX "User_username_key" ON "User"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "_ItemToItemTag_AB_unique" ON "_ItemToItemTag"("A", "B");

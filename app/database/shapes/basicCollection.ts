@@ -4,7 +4,7 @@ export const basicCollectionArgs = Prisma.validator<Prisma.CollectionArgs>()({
   include: {
     author: {
       select: {
-        nickname: true,
+        username: true,
         id: true,
       },
     },
@@ -24,7 +24,7 @@ export const formatBasicCollection = ({
   name,
   id,
   imageUrl,
-  author: { nickname: authorName, id: authorId },
+  author: { username: authorName, id: authorId },
   topic,
   _count: { items: itemsCount },
 }: BasicCollectionPrismaType) => ({

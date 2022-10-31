@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { hashPassword } from "../../../app/lib/auth/utils";
 import { db, repeat } from "../utils";
 
 export default async function seedUsers() {
@@ -8,7 +9,8 @@ export default async function seedUsers() {
 async function createUser() {
   await db.user.create({
     data: {
-      nickname: faker.name.fullName(),
+      username: faker.internet.userName(),
+      passwordHash: await hashPassword("123"),
     },
   });
 }

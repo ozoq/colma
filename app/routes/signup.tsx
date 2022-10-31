@@ -1,43 +1,28 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Input,
-  Stack,
-} from "@chakra-ui/react";
 import type { ActionFunction } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import BorderedBox from "~/components/elements/shared/BorderedBox";
+import { useActionData } from "@remix-run/react";
+import {
+  AuthForm,
+  PasswordInput,
+  UsernameInput,
+} from "~/components/views/forms/AuthForm";
+import { authenticate } from "~/lib/auth/auth.server";
 
 export const action: ActionFunction = async ({ request }) => {
-  return json({});
+  return authenticate("form-signup", request);
 };
 
 export default function SignupPage() {
+  const actionData = useActionData<typeof action>();
+  const errorMessage = actionData?.errorMessage;
   return (
-    <Flex align="center" justify="center" height="100%">
-      <Stack py={12} px={6} spacing={8} alignItems="center">
-        <Heading>Create an account</Heading>
-        <BorderedBox p={8} width="400px">
-          <form method="post" action="/signup">
-            <Stack spacing={4}>
-              <FormControl id="email">
-                <FormLabel>Username</FormLabel>
-                <Input name="username" />
-              </FormControl>
-              <FormControl id="password">
-                <FormLabel>Password</FormLabel>
-                <Input name="password" type="password" />
-              </FormControl>
-              <Button type="submit" colorScheme="blue">
-                Sign in
-              </Button>
-            </Stack>
-          </form>
-        </BorderedBox>
-      </Stack>
-    </Flex>
+    <AuthForm
+      heading="Create an account"
+      action="/signup"
+      errorMessage={errorMessage}
+      submitLabel="Sign up"
+    >
+      <UsernameInput />
+      <PasswordInput />
+    </AuthForm>
   );
 }

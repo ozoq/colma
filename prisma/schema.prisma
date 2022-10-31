@@ -74,11 +74,12 @@ model Item {
 }
 
 model User {
-  id          Int          @id @default(autoincrement())
-  nickname    String       @unique
-  collections Collection[]
-  likedItems  Item[]
-  comments    Comment[]
+  id           Int          @id @default(autoincrement())
+  username     String       @unique
+  collections  Collection[]
+  likedItems   Item[]
+  comments     Comment[]
+  passwordHash String
 }
 
 model Comment {
