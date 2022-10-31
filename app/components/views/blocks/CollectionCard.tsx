@@ -10,7 +10,7 @@ export type CollectionCardProps = BoxProps & {
 };
 
 export default function CollectionCard(props: CollectionCardProps) {
-  const { id, name, authorId, authorName } = props.collection;
+  const { id, name, author } = props.collection;
   return (
     <Box m={2} width={250} {...props}>
       <CollectionImageLinked collection={props.collection} />
@@ -20,10 +20,10 @@ export default function CollectionCard(props: CollectionCardProps) {
             <Link to={generateCollectionUrl(id)}>{name}</Link>
           </Text>
           <Text fontSize="sm">
-            By <Link to={generateUserUrl(authorId)}>{authorName}</Link>
+            By <Link to={generateUserUrl(author.id)}>{author.username}</Link>
           </Text>
         </Box>
-        <Link to={generateUserUrl(authorId)}>
+        <Link to={generateUserUrl(author.id)}>
           <Avatar size="sm" />
         </Link>
       </Flex>

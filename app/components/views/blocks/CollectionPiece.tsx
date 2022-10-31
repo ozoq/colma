@@ -11,7 +11,7 @@ export type CollectionPieceProps = FlexProps & {
 
 export default function CollectionPiece(props: CollectionPieceProps) {
   const { collection } = props;
-  const { name, authorName, authorId, id } = collection;
+  const { name, author, id } = collection;
   return (
     <Flex gap={4} {...props}>
       <CollectionImageLinked collection={collection} height={180} width={200} />
@@ -22,11 +22,11 @@ export default function CollectionPiece(props: CollectionPieceProps) {
         <Flex alignItems={"end"} gap={4}>
           <Text fontSize="sm">
             {`Collection by `}
-            <Link to={generateUserUrl(authorId)} fontWeight="medium">
-              {authorName}
+            <Link to={generateUserUrl(author.id)} fontWeight="medium">
+              {author.username}
             </Link>
           </Text>
-          <Link to={generateUserUrl(authorId)}>
+          <Link to={generateUserUrl(author.id)}>
             <Avatar size="sm" />
           </Link>
         </Flex>
