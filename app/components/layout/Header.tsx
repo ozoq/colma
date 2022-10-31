@@ -1,14 +1,7 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Image,
-  Input,
-  InputGroup,
-  InputRightElement,
-} from "@chakra-ui/react";
-import { MoonIcon, SearchIcon } from "@chakra-ui/icons";
+import { Box, Button, Flex, Image } from "@chakra-ui/react";
+import { MoonIcon } from "@chakra-ui/icons";
 import Link from "../elements/shared/Link";
+import SearchBar from "../elements/header/SearchBar";
 
 export default function Header() {
   return (
@@ -17,14 +10,7 @@ export default function Header() {
         <Link to="/" minWidth="151px">
           <Image src="/colmanag.svg" alt="Colmanag" height="100%" />
         </Link>
-        <InputGroup size="md">
-          <Input borderRadius={"full"} placeholder="Search" />
-          <InputRightElement>
-            <Button borderRadius={"full"}>
-              <SearchIcon />
-            </Button>
-          </InputRightElement>
-        </InputGroup>
+        <SearchBar />
         <Flex gap="3">
           <Button borderRadius={"full"} colorScheme="red">
             Log in
