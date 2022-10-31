@@ -34,12 +34,11 @@ export const action: ActionFunction = async ({ request }) => {
 
 export default function LoginPage() {
   const actionData = useActionData<typeof action>();
-  console.log(1234, actionData);
   return (
     <Flex align="center" justify="center" height="100%">
-      <Stack py={12} px={6} spacing={8}>
-        <Heading>Sign in to your account1</Heading>
-        <BorderedBox p={8}>
+      <Stack py={12} px={6} spacing={8} alignItems="center">
+        <Heading>Sign in to your account</Heading>
+        <BorderedBox p={8} width="400px">
           <form method="post" action="/login">
             <Stack spacing={4}>
               {actionData?.errorMessage && (
