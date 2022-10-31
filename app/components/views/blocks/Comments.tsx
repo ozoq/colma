@@ -7,6 +7,7 @@ import {
   Stack,
   Text,
   Textarea,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import autosize from "autosize";
 import moment from "moment";
@@ -46,7 +47,12 @@ export default function Comments({ item }: CommentsProps) {
   return (
     <Box>
       <Box pl={5}>
-        <Text size="lg" fontWeight="medium" color="blackAlpha.700" mb={4}>
+        <Text
+          size="lg"
+          fontWeight="medium"
+          color={useColorModeValue("gray.800", "gray.200")}
+          mb={4}
+        >
           <Text as="b">COMMENTS </Text>({comments.length})
         </Text>
         <Flex gap={4} px={2} mb={8}>
@@ -64,19 +70,25 @@ export default function Comments({ item }: CommentsProps) {
         </Flex>
         <Stack px={2}>
           {comments.map((comment) => (
-            <Flex gap={4} key={comment.id}>
-              <Avatar size="sm" borderRadius={"lg"} />
-              <Box>
-                <Text fontWeight="bold">{comment.authorName}</Text>
-                <Text>{comment.text}</Text>
-                <Text color="blackAlpha.600">
-                  {moment(comment.date, "DD/MM/YYYY").fromNow()}
-                </Text>
-              </Box>
-            </Flex>
+            <Comment key={comment.id} comment={comment} />
           ))}
         </Stack>
       </Box>
     </Box>
+  );
+}
+
+function Comment({ comment }: { comment: typeof comments[0] }) {
+  return (
+    <Flex gap={4}>
+      <Avatar size="sm" borderRadius={"lg"} />
+      <Box>
+        <Text fontWeight="bold">{comment.authorName}</Text>
+        <Text>{comment.text}</Text>
+        <Text fontWeight="medium" fontSize="sm" color="gray.400">
+          {moment(comment.date, "DD/MM/YYYY").fromNow()}
+        </Text>
+      </Box>
+    </Flex>
   );
 }

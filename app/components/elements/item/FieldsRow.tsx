@@ -1,4 +1,5 @@
 import type { SimpleGridProps } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 import { Grid } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
@@ -20,7 +21,7 @@ export default function FieldsRow(props: FieldsRowProps) {
       ref={ref}
       shadow="inner"
       border="1px"
-      borderColor={"gray.200"}
+      borderColor={useColorModeValue("gray.200", "gray.700")}
       rounded="lg"
       {...props}
     >

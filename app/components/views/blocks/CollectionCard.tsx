@@ -1,4 +1,5 @@
 import type { BoxProps } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 import { Stack } from "@chakra-ui/react";
 import { Avatar, Box, Flex, Text } from "@chakra-ui/react";
 import CollectionImageLinked from "~/components/elements/collection/CollectionImageLinked";
@@ -20,7 +21,7 @@ export default function CollectionCard(props: CollectionCardProps) {
           <Text fontSize="md" fontWeight={"medium"}>
             <Link to={generateCollectionUrl(id)}>{name}</Link>
           </Text>
-          <Text fontSize="sm" color="blackAlpha.700">
+          <Text fontSize="sm" color={useColorModeValue("gray.500", "gray.300")}>
             By{" "}
             <Link fontWeight="medium" to={generateUserUrl(author.id)}>
               {author.username}

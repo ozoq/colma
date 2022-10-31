@@ -7,8 +7,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import type { MetaFunction, LoaderFunction } from "@remix-run/node";
-import { getColorMode } from "./lib/session.server";
+import type { MetaFunction } from "@remix-run/node";
 import ChakraStyles from "./lib/chakra/ChakraStyles";
 import Main from "./components/layout/Main";
 
@@ -17,13 +16,6 @@ export const meta: MetaFunction = () => ({
   title: "Colmanag",
   viewport: "width=device-width,initial-scale=1",
 });
-
-export const loader: LoaderFunction = async ({ request }) => {
-  const { get } = await getColorMode(request);
-  return {
-    colorMode: get(),
-  };
-};
 
 export default function App() {
   return (

@@ -1,12 +1,10 @@
-import { useColorMode } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 import type { SVGProps } from "react";
 
 export default function Logo(props: SVGProps<SVGSVGElement>) {
-  const { colorMode } = useColorMode();
-
-  const iconColor = colorMode === "light" ? "#E53E3E" : "#E53E3E";
-  const textColor = colorMode === "light" ? "#111" : "#eee";
-  const iconFill = colorMode === "light" ? undefined : iconColor;
+  const iconColor = "#E53E3E";
+  const textColor = useColorModeValue("#111", "#eee");
+  const iconFill = useColorModeValue(undefined, iconColor);
 
   return (
     <svg

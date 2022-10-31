@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Image } from "@chakra-ui/react";
+import { Box, Button, Flex, Image, useColorModeValue } from "@chakra-ui/react";
 import Link from "../elements/shared/Link";
 import SearchBar from "../elements/header/SearchBar";
 import ButtonAsLink from "../elements/shared/ButtonAsLink";
@@ -7,7 +7,10 @@ import Logo from "../elements/header/Logo";
 
 export default function Header() {
   return (
-    <Box borderBottom="1px" borderColor={"gray.100"}>
+    <Box
+      borderBottom="1px"
+      borderColor={useColorModeValue("gray.100", "gray.700")}
+    >
       <Flex gap="5" p={6} direction={{ base: "column", md: "row" }}>
         <Flex gap="5" flex={1}>
           <Link to="/" minWidth="151px">

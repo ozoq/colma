@@ -1,5 +1,12 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { Box, Flex, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Heading,
+  SimpleGrid,
+  Stack,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
 import { getItemById } from "~/database/api/item";
@@ -23,7 +30,12 @@ export default function ItemPage() {
   const { item } = useLoaderData<typeof loader>();
   return (
     <Stack spacing={6}>
-      <Stack pb={2} borderBottom="1px" borderColor="gray.100" spacing={8}>
+      <Stack
+        pb={2}
+        borderBottom="1px"
+        borderColor={useColorModeValue("gray.100", "gray.700")}
+        spacing={8}
+      >
         <Heading>{item.name}</Heading>
         <Flex justifyContent="space-between" gap={4} alignItems="bottom">
           <TagsRow justifyContent="start" item={item} />
@@ -37,7 +49,7 @@ export default function ItemPage() {
           pr={4}
           mr={2}
           borderRight="1px"
-          borderColor="gray.100"
+          borderColor={useColorModeValue("gray.100", "gray.700")}
         />
         <Box>
           <CollectionPiece collection={item.collection} mb={8} />

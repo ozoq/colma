@@ -1,4 +1,5 @@
 import type { BoxProps } from "@chakra-ui/react";
+import { useColorModeValue } from "@chakra-ui/react";
 import { Box, Text } from "@chakra-ui/react";
 import type { FullCollectionType } from "~/database/shapes/fullCollection";
 
@@ -11,7 +12,7 @@ export default function DescriptionBlock(props: DescriptionBlockProps) {
     <Box
       borderBottom="1px"
       borderTop="1px"
-      borderColor={"gray.100"}
+      borderColor={useColorModeValue("gray.100", "gray.700")}
       py={4}
       {...props}
     >
