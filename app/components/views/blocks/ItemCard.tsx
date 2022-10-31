@@ -19,14 +19,14 @@ export default function ItemCard(props: ItemCardProps) {
   const navigate = useNavigate();
   return (
     <BorderedBox {...props}>
-      <Flex direction="column" p={4} height={500} width={350}>
+      <Flex direction="column" p={4} height="25em" width="20em">
         <TagsRow item={props.item} mb={4} />
         <Link to={generateItemUrl(props.item.id)}>
-          <Heading mx={4} size="md" textAlign="center" mb={4}>
+          <Heading mx={4} size="sm" textAlign="center" mb={4}>
             {props.item.name}
           </Heading>
         </Link>
-        <FieldsRow flex={1} item={props.item} mb={4} px={4} />
+        <FieldsRow flex={1} item={props.item} mb={4} px={2} />
         <Flex justifyContent="flex-end" gap={2}>
           <LikeRow item={props.item} />
           <Button

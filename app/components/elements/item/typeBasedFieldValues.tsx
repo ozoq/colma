@@ -8,7 +8,6 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  Tag,
   Text,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -18,7 +17,7 @@ import type { FieldCellType } from "~/database/shapes/fieldCell";
 export type TypedFieldProps = { field: FieldCellType };
 
 export function IntegerField({ field }: TypedFieldProps) {
-  return <Tag>{field.value}</Tag>;
+  return <Text>{field.value}</Text>;
 }
 
 export function StringField({ field }: TypedFieldProps) {
@@ -26,15 +25,15 @@ export function StringField({ field }: TypedFieldProps) {
 }
 
 export function BooleanField({ field }: TypedFieldProps) {
-  return <Tag>{field.value === "true" ? "Yes" : "No"}</Tag>;
+  return <Text>{field.value === "true" ? "Yes" : "No"}</Text>;
 }
 
 export function DateField({ field }: TypedFieldProps) {
-  return <Tag>{moment(field.value).calendar()}</Tag>;
+  return <Text>{moment(field.value).calendar()}</Text>;
 }
 
 export function EnumField({ field }: TypedFieldProps) {
-  return <Tag>{field.value}</Tag>;
+  return <Text>{field.value}</Text>;
 }
 
 export function MultilineField({ field }: TypedFieldProps) {

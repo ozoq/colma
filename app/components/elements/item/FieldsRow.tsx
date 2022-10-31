@@ -1,4 +1,5 @@
 import type { SimpleGridProps } from "@chakra-ui/react";
+import { Grid } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
@@ -23,13 +24,19 @@ export default function FieldsRow(props: FieldsRowProps) {
       rounded="lg"
       {...props}
     >
-      <SimpleGrid templateColumns="1fr 2fr" p={4} gap={3} ref={ref}>
+      <SimpleGrid
+        templateColumns="1fr 2fr"
+        p={4}
+        gap={3}
+        ref={ref}
+        fontSize="sm"
+      >
         {fields.map((field) => (
           <>
             <Text key={field.name} fontWeight={"medium"}>
               {field.name}
             </Text>
-            <Box justifySelf="flex-start">
+            <Box>
               <ItemFieldBasedOnType field={field} />
             </Box>
           </>
