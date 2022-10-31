@@ -10,7 +10,6 @@ export default React.forwardRef<HTMLElement, OverflowableBoxProps>(
     const childSize = useSize(childRef as React.RefObject<HTMLElement>);
     const containerRef = useRef(null);
     const containerSize = useSize(containerRef);
-    console.log(containerSize, childSize);
     return (
       <Box overflow="hidden" position="relative" {...props} ref={containerRef}>
         {props.children}

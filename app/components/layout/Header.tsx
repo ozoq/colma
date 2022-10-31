@@ -1,8 +1,9 @@
 import { Box, Button, Flex, Image } from "@chakra-ui/react";
-import { MoonIcon } from "@chakra-ui/icons";
 import Link from "../elements/shared/Link";
 import SearchBar from "../elements/header/SearchBar";
 import ButtonAsLink from "../elements/shared/ButtonAsLink";
+import ColorModeToggle from "../elements/header/ColorModeToggle";
+import Logo from "../elements/header/Logo";
 
 export default function Header() {
   return (
@@ -10,7 +11,7 @@ export default function Header() {
       <Flex gap="5" p={6} direction={{ base: "column", md: "row" }}>
         <Flex gap="5" flex={1}>
           <Link to="/" minWidth="151px">
-            <Image src="/colmanag.svg" alt="Colmanag" height="100%" />
+            <Logo />
           </Link>
           <SearchBar />
         </Flex>
@@ -32,9 +33,7 @@ export default function Header() {
             >
               <Image maxHeight={"100%"} src="/polish.svg" alt="PL" />
             </Button>
-            <Button borderRadius={"full"} size="sm">
-              <MoonIcon color="gray.600" />
-            </Button>
+            <ColorModeToggle />
           </Flex>
         </Flex>
       </Flex>

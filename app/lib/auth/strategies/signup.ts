@@ -18,8 +18,6 @@ export default function registerFormSignupStrategy(
         },
       });
 
-      console.log(existingUser);
-
       invariant(existingUser === null, "Username is taken");
 
       const user = await db.user.create({
