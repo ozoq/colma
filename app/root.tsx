@@ -1,7 +1,7 @@
 // root.tsx
 import React, { useContext, useEffect } from "react";
 import { withEmotionCache } from "@emotion/react";
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider, Flex } from "@chakra-ui/react";
 import {
   Links,
   LiveReload,
@@ -83,12 +83,12 @@ export default function App() {
   return (
     <Document>
       <ChakraProvider>
-        <Box minH="100vh">
+        <Flex h="100vh" direction={"column"}>
           <Header />
-          <Box p={12} maxW={1500} mx="auto">
+          <Box p={12} maxW={1500} mx="auto" flex={1}>
             <Outlet />
           </Box>
-        </Box>
+        </Flex>
       </ChakraProvider>
     </Document>
   );
