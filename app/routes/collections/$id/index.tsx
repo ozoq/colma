@@ -2,15 +2,18 @@ import { Button, Flex, Heading, Select, Stack, Text } from "@chakra-ui/react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
+import ButtonAsLink from "~/components/common/ButtonAsLink";
 import { CustomTag } from "~/components/common/CustomTag";
 import { ImageBox, ImageBoxRow } from "~/components/common/ImageBox";
 
 import Error404 from "~/components/errors/Error404";
 import ErrorOther from "~/components/errors/ErrorOther";
 import ItemCard from "~/components/item/ItemCard";
+import NewItemButton from "~/components/item/NewItemButton";
 import { getCollectionById } from "~/database/api/collection";
 import useResourceAuthorizationStatus from "~/hooks/useResourceAuthorizationStatus";
 import useStyleProps from "~/hooks/useStyleProps";
+import { generateCollectionUrl } from "~/utils/URLs";
 
 export async function loader({ params }: LoaderArgs) {
   const collection = await getCollectionById(Number(params.id));
@@ -26,9 +29,22 @@ export default function CollectionPage() {
   return (
     <Stack spacing={4}>
       <Stack>
-        <Heading mb={4} size="lg">
-          {collection.name}
-        </Heading>
+        <Stack>
+          {isOwned && (
+            <Flex>
+              <ButtonAsLink
+                size="sm"
+                colorScheme="yellow"
+                to={generateCollectionUrl(collection.id) + "/edit/name"}
+              >
+                Edit name
+              </ButtonAsLink>
+            </Flex>
+          )}
+          <Heading mb={4} size="lg">
+            {collection.name}
+          </Heading>
+        </Stack>
         <ImageBox imageUrl={collection.imageUrl} height={300}>
           <ImageBoxRow rowPosition="tr" alignItems="start">
             {isOwned ? (
@@ -49,9 +65,13 @@ export default function CollectionPage() {
       <Stack borderY="1px" {...useStyleProps().subtleBorder} py={4} spacing={4}>
         {isOwned && (
           <Flex>
-            <Button size="sm" colorScheme="yellow">
+            <ButtonAsLink
+              size="sm"
+              colorScheme="yellow"
+              to={generateCollectionUrl(collection.id) + "/edit/description"}
+            >
               Edit
-            </Button>
+            </ButtonAsLink>
           </Flex>
         )}
         <Text px={8}>{collection.description}</Text>
@@ -59,9 +79,13 @@ export default function CollectionPage() {
 
       {isOwned && (
         <Flex gap={2}>
-          <Button size="sm" colorScheme="yellow">
+          <ButtonAsLink
+            size="sm"
+            colorScheme="yellow"
+            to={generateCollectionUrl(collection.id) + "/edit/fields"}
+          >
             Configure items
-          </Button>
+          </ButtonAsLink>
           <Button size="sm" colorScheme="purple">
             Filter
           </Button>
@@ -72,6 +96,7 @@ export default function CollectionPage() {
         </Flex>
       )}
       <Flex justifyContent={"center"} flexWrap="wrap" alignItems="center">
+        {isOwned && <NewItemButton />}
         {collection.items.map((item) => (
           <ItemCard key={item.id} item={item} m={4} />
         ))}

@@ -1,10 +1,9 @@
 import type { ActionFunction } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
-import {
-  AuthForm,
+import CenteredForm, {
   PasswordInput,
   UsernameInput,
-} from "~/components/forms/AuthForm";
+} from "~/components/forms/CenteredForm";
 import { authenticate } from "~/lib/auth/auth.server";
 
 export const action: ActionFunction = async ({ request }) => {
@@ -15,7 +14,7 @@ export default function SignupPage() {
   const actionData = useActionData<typeof action>();
   const errorMessage = actionData?.errorMessage;
   return (
-    <AuthForm
+    <CenteredForm
       heading="Create an account"
       action="/signup"
       errorMessage={errorMessage}
@@ -23,6 +22,6 @@ export default function SignupPage() {
     >
       <UsernameInput />
       <PasswordInput />
-    </AuthForm>
+    </CenteredForm>
   );
 }

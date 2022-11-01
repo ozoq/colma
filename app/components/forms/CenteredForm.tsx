@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -6,9 +7,8 @@ import {
   Heading,
   Input,
   Stack,
-  Text,
 } from "@chakra-ui/react";
-import BorderedBox from "../common/BorderedBox";
+import PostForm from "./PostForm";
 
 export function UsernameInput() {
   return (
@@ -36,32 +36,7 @@ export function SubmitButton({ label }: { label: string }) {
   );
 }
 
-export function Form({
-  action,
-  children,
-  errorMessage,
-}: {
-  action: string;
-  children: React.ReactNode;
-  errorMessage: string;
-}) {
-  return (
-    <BorderedBox p={8} w="20em">
-      <form method="post" action={action}>
-        <Stack spacing={4}>
-          {errorMessage && (
-            <Text color="red" fontWeight="medium">
-              {errorMessage}
-            </Text>
-          )}
-          {children}
-        </Stack>
-      </form>
-    </BorderedBox>
-  );
-}
-
-export function AuthForm({
+export default function CenteredForm({
   children,
   heading,
   action,
@@ -75,13 +50,15 @@ export function AuthForm({
   submitLabel: string;
 }) {
   return (
-    <Flex align="center" justify="center" height="100%">
-      <Stack py={12} px={6} spacing={8} alignItems="center">
+    <Flex align="center" justify="center" height="100%" width="100%">
+      <Stack py={12} px={6} spacing={8} alignItems="center" width="100%">
         <Heading>{heading}</Heading>
-        <Form action={action} errorMessage={errorMessage}>
-          {children}
-          <SubmitButton label={submitLabel} />
-        </Form>
+        <Box width="100%">
+          <PostForm action={action} errorMessage={errorMessage}>
+            {children}
+            <SubmitButton label={submitLabel} />
+          </PostForm>
+        </Box>
       </Stack>
     </Flex>
   );
