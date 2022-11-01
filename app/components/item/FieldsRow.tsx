@@ -33,7 +33,7 @@ export default function FieldsRow(props: FieldsRowProps) {
       >
         {fields.map((field) => (
           <>
-            <Text key={field.name} fontWeight={"medium"}>
+            <Text key={field.cellId} fontWeight={"medium"}>
               {field.name}
             </Text>
             <Box>
