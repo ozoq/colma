@@ -21,6 +21,7 @@ module.exports = {
     /^react-markdown$/,
     /^vfile.*/,
     /^trim-lines.*/,
+    /^is-plain-obj.*/,
   ],
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
