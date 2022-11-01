@@ -14,7 +14,7 @@ export type CollectionCardProps = BoxProps & {
 export default function CollectionCard(props: CollectionCardProps) {
   const { id, name, author } = props.collection;
   return (
-    <Box m={2} width="48" {...props}>
+    <Box width="48" {...props}>
       <CollectionImageLinked collection={props.collection} height="28" />
       <Flex gap={2} justifyContent="space-between" alignItems="end" p={2}>
         <Stack>

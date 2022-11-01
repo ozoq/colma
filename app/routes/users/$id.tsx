@@ -4,6 +4,7 @@ import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "invariant";
 import CollectionCard from "~/components/views/blocks/CollectionCard";
+import NewCollectionButton from "~/components/views/blocks/NewCollectionButton";
 import Error404 from "~/components/views/errors/Error404";
 import ErrorOther from "~/components/views/errors/ErrorOther";
 import { getFullUserById } from "~/database/api/user";
@@ -28,10 +29,11 @@ export default function CollectionPage() {
 
   return (
     <Box mb={12}>
-      <Heading mb={5} textAlign="center" size="lg">
+      <Heading mb={12} textAlign="center" size="lg">
         {isOwned ? "Your collections" : `Collections by ${user.username}`}
       </Heading>
-      <Flex justifyContent={"center"} flexWrap="wrap" gap={6}>
+      <Flex justifyContent={"center"} flexWrap="wrap" gap={4} rowGap={12}>
+        {isOwned && <NewCollectionButton />}
         {user.collections.map((collection) => (
           <CollectionCard key={collection.id} collection={collection} />
         ))}

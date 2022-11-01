@@ -36,7 +36,7 @@ export default function Index() {
         <Heading mb={5} textAlign="center" size="lg">
           Explore Our Largest Collections
         </Heading>
-        <Flex justifyContent={"center"} flexWrap="wrap">
+        <Flex justifyContent={"center"} flexWrap="wrap" gap={4}>
           {largestCollections.map((collection) => (
             <CollectionCard key={collection.id} collection={collection} />
           ))}
