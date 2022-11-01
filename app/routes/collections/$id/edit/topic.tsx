@@ -1,19 +1,19 @@
-import { FormControl, FormLabel } from "@chakra-ui/react";
+import { FormControl, FormLabel, Select } from "@chakra-ui/react";
+import { CollectionTopic } from "@prisma/client";
 import type { ActionFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { useParams } from "@remix-run/react";
 import invariant from "invariant";
-import { db } from "~/lib/db.server";
 import AutosizedTextarea from "~/components/common/AutosizedTextarea";
 import ButtonAsLink from "~/components/common/ButtonAsLink";
 import CenteredForm from "~/components/forms/CenteredForm";
 import useActionError from "~/hooks/useActionError";
+import { db } from "~/lib/db.server";
 import { generateCollectionUrl } from "~/utils/URLs";
 import {
   validateCanEditCollection,
-  validateCollectionDescription,
-  validateCollectionName,
+  validateCollectionTopic,
   validateId,
 } from "~/utils/validate";
 
@@ -26,7 +26,7 @@ export const action: ActionFunction = async ({ request, params }) => {
     await db.collection.update({
       where: { id },
       data: {
-        description,
+        topic,
       },
     });
     return redirect(generateCollectionUrl(id));
@@ -37,12 +37,12 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
 };
 
-export default function EditCollectionNamePage() {
+export default function EditCollectionTopic() {
   const id = Number(useParams().id);
   const { errorMessage } = useActionError();
   return (
     <CenteredForm
-      action={generateCollectionUrl(id) + "/edit/description"}
+      action={generateCollectionUrl(id) + "/edit/topic"}
       errorMessage={errorMessage}
       heading="Edit collection description"
       submitLabel="Update"
@@ -51,8 +51,12 @@ export default function EditCollectionNamePage() {
         Back to collection
       </ButtonAsLink>
       <FormControl>
-        <FormLabel>Name</FormLabel>
-        <AutosizedTextarea name="name" rows={1} />
+        <FormLabel>Topic</FormLabel>
+        <Select name="topic">
+          {Object.values(CollectionTopic).map((topic) => (
+            <option key={topic}>{topic}</option>
+          ))}
+        </Select>
       </FormControl>
     </CenteredForm>
   );

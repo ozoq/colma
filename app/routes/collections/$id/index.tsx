@@ -50,11 +50,11 @@ export default function CollectionPage() {
         <ImageBox imageUrl={collection.imageUrl} height={300}>
           <ImageBoxRow rowPosition="tr" alignItems="start">
             {isOwned ? (
-              <Button size="sm" height="auto" px={0}>
+              <ButtonAsLink size="sm" height="auto" px={0} to={"edit/topic"}>
                 <CustomTag tagVariant="solid" colorScheme="yellow">
                   {collection.topic}
                 </CustomTag>
-              </Button>
+              </ButtonAsLink>
             ) : (
               <CustomTag tagVariant="solid">{collection.topic}</CustomTag>
             )}
