@@ -1,5 +1,21 @@
-// TODO (see Comments.tsx)
+import type { TextareaProps } from "@chakra-ui/react";
+import { Textarea } from "@chakra-ui/react";
+import autosize from "autosize";
+import { useEffect, useRef } from "react";
 
-export default function AutosizedTextarea() {
-  return 123;
+export type AutosizedTextareaProps = TextareaProps;
+
+export default function AutosizedTextarea(props: AutosizedTextareaProps) {
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    autosize(ref.current);
+    const autosized = ref.current;
+    return () => {
+      autosize.destroy(autosized);
+    };
+  }, []);
+
+  return <Textarea ref={ref} {...props} />;
 }

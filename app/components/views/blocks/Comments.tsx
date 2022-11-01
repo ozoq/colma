@@ -6,13 +6,11 @@ import {
   Icon,
   Stack,
   Text,
-  Textarea,
   useColorModeValue,
 } from "@chakra-ui/react";
-import autosize from "autosize";
 import moment from "moment";
-import { useEffect, useRef } from "react";
 import { BiSend } from "react-icons/bi";
+import AutosizedTextarea from "~/components/elements/shared/AutosizedTextarea";
 import type { FullItemType } from "~/database/shapes/fullItem";
 
 const comments = [
@@ -33,17 +31,6 @@ const comments = [
 export type CommentsProps = { item: FullItemType };
 
 export default function Comments({ item }: CommentsProps) {
-  const commentTextareaRef = useRef<HTMLTextAreaElement>(null);
-
-  useEffect(() => {
-    if (!commentTextareaRef.current) return;
-    autosize(commentTextareaRef.current);
-    const autosized = commentTextareaRef.current;
-    return () => {
-      autosize.destroy(autosized);
-    };
-  }, []);
-
   return (
     <Box>
       <Box pl={5}>
@@ -59,11 +46,7 @@ export default function Comments({ item }: CommentsProps) {
           <Flex boxSize="40px" alignItems="center">
             <Avatar size="sm" borderRadius={"lg"} />
           </Flex>
-          <Textarea
-            ref={commentTextareaRef}
-            placeholder="Write a comment.."
-            rows={1}
-          />
+          <AutosizedTextarea placeholder="Write a comment.." rows={1} />
           <Button>
             <Icon as={BiSend} />
           </Button>
