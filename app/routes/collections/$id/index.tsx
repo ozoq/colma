@@ -1,28 +1,26 @@
 import { Button, Flex, Heading, Select, Stack, Text } from "@chakra-ui/react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useCatch, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import ChakraUIRenderer from "chakra-ui-markdown-renderer";
 import ReactMarkdown from "react-markdown";
 import ButtonAsLink from "~/components/common/ButtonAsLink";
 import { CustomTag } from "~/components/common/CustomTag";
 import { ImageBox, ImageBoxRow } from "~/components/common/ImageBox";
-
-import Error404 from "~/components/errors/Error404";
-import ErrorOther from "~/components/errors/ErrorOther";
 import ItemCard from "~/components/item/ItemCard";
 import NewItemButton from "~/components/item/NewItemButton";
 import { getCollectionById } from "~/database/api/collection";
 import useResourceAuthorizationStatus from "~/hooks/useResourceAuthorizationStatus";
 import useStyleProps from "~/hooks/useStyleProps";
 import { generateCollectionUrl } from "~/utils/URLs";
+import { tryLoadResource } from "~/utils/validate";
 
 export async function loader({ params }: LoaderArgs) {
-  const collection = await getCollectionById(Number(params.id));
-  if (!collection) {
-    throw new Response("Not Found", { status: 404 });
-  }
-  return json({ collection });
+  return json({
+    collection: await tryLoadResource(() =>
+      getCollectionById(Number(params.id))
+    ),
+  });
 }
 
 export default function CollectionPage() {
@@ -64,6 +62,7 @@ export default function CollectionPage() {
           </ImageBoxRow>
         </ImageBox>
       </Stack>
+
       <Stack borderY="1px" {...useStyleProps().subtleBorder} py={4} spacing={4}>
         {isOwned && (
           <Flex>
@@ -103,6 +102,7 @@ export default function CollectionPage() {
           </Select>
         </Flex>
       )}
+
       <Flex justifyContent={"center"} flexWrap="wrap" alignItems="center">
         {isOwned && <NewItemButton />}
         {collection.items.map((item) => (
@@ -111,18 +111,4 @@ export default function CollectionPage() {
       </Flex>
     </Stack>
   );
-}
-
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-  return <ErrorOther />;
-}
-
-// TODO: try to transfer to root.tsx
-export function CatchBoundary() {
-  const caught = useCatch();
-  if (caught.status === 404) {
-    return <Error404 />;
-  }
-  throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }

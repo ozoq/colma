@@ -1,5 +1,4 @@
 import { CollectionTopic, ItemFieldType } from "@prisma/client";
-import type { Params } from "@remix-run/react";
 import invariant from "invariant";
 import { db } from "~/lib/db.server";
 import { authenticator } from "./../lib/auth/auth.server";
@@ -63,4 +62,12 @@ export function validateFieldType(type: any) {
     "No such type exists"
   );
   return type as ItemFieldType;
+}
+
+export async function tryLoadResource<T>(loader: () => T) {
+  const resource = await loader();
+  if (!resource) {
+    throw new Response("Not Found", { status: 404 });
+  }
+  return resource;
 }

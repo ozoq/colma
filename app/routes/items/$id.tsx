@@ -8,22 +8,19 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { json } from "@remix-run/node";
-import { useCatch, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import { getItemById } from "~/database/api/item";
 import Comments from "~/components/item/Comments";
-import ErrorOther from "~/components/errors/ErrorOther";
-import Error404 from "~/components/errors/Error404";
 import TagsRow from "~/components/item/TagsRow";
 import LikeRow from "~/components/item/LikeRow";
 import ItemDisplay from "~/components/item/ItemDisplay";
 import CollectionPiece from "~/components/collection/CollectionPiece";
+import { tryLoadResource } from "~/utils/validate";
 
 export async function loader({ params }: LoaderArgs) {
-  const item = await getItemById(Number(params.id));
-  if (!item) {
-    throw new Response("Not Found", { status: 404 });
-  }
-  return json({ item });
+  return json({
+    item: await tryLoadResource(() => getItemById(Number(params.id))),
+  });
 }
 
 export default function ItemPage() {
@@ -58,17 +55,4 @@ export default function ItemPage() {
       </SimpleGrid>
     </Stack>
   );
-}
-
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
-  return <ErrorOther />;
-}
-
-export function CatchBoundary() {
-  const caught = useCatch();
-  if (caught.status === 404) {
-    return <Error404 />;
-  }
-  throw new Error(`Unexpected caught response with status: ${caught.status}`);
 }

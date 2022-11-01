@@ -18,6 +18,11 @@ import BorderedBox from "~/components/common/BorderedBox";
 import { authenticator } from "~/lib/auth/auth.server";
 import { db } from "~/lib/db.server";
 import { generateCollectionUrl } from "~/utils/URLs";
+import {
+  validateCollectionDescription,
+  validateCollectionName,
+  validateCollectionTopic,
+} from "~/utils/validate";
 
 export const action: ActionFunction = async ({ request }) => {
   try {
@@ -32,9 +37,9 @@ async function newCollection(request: Request) {
   const currentUserId = await authenticator.isAuthenticated(request);
   invariant(currentUserId !== null, "Should be signed in");
   const form = await request.formData();
-  const name = validateName(form.get("name"));
-  const description = validateDescription(form.get("description"));
-  const topic = validateTopic(form.get("topic"));
+  const name = validateCollectionName(form.get("name"));
+  const description = validateCollectionDescription(form.get("description"));
+  const topic = validateCollectionTopic(form.get("topic"));
 
   console.log("creating..");
 
@@ -53,27 +58,6 @@ async function newCollection(request: Request) {
   });
 
   return collection;
-}
-
-function validateName(name: any) {
-  invariant(typeof name === "string", "Name must be a string");
-  invariant(name.length > 0, "Name cannot be empty");
-  return name;
-}
-
-function validateDescription(description: any) {
-  invariant(typeof description === "string", "Description must be a string");
-  invariant(description.length > 0, "Description cannot be empty");
-  return description;
-}
-
-function validateTopic(topic: any) {
-  invariant(typeof topic === "string", "Topic must be a string");
-  invariant(
-    Object.values(CollectionTopic).includes(topic as CollectionTopic),
-    "No such topic exists"
-  );
-  return topic as CollectionTopic;
 }
 
 export default function NewCollectionPage() {
