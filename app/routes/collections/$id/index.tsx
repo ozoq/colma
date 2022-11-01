@@ -2,6 +2,8 @@ import { Button, Flex, Heading, Select, Stack, Text } from "@chakra-ui/react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
+import ChakraUIRenderer from "chakra-ui-markdown-renderer";
+import ReactMarkdown from "react-markdown";
 import ButtonAsLink from "~/components/common/ButtonAsLink";
 import { CustomTag } from "~/components/common/CustomTag";
 import { ImageBox, ImageBoxRow } from "~/components/common/ImageBox";
@@ -74,7 +76,13 @@ export default function CollectionPage() {
             </ButtonAsLink>
           </Flex>
         )}
-        <Text px={8}>{collection.description}</Text>
+        <Text px={8}>
+          <ReactMarkdown
+            components={ChakraUIRenderer()}
+            children={collection.description}
+            skipHtml
+          />
+        </Text>
       </Stack>
 
       {isOwned && (
