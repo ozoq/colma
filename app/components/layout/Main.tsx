@@ -1,25 +1,24 @@
-import { Box, Flex } from "@chakra-ui/react";
-import type { HeaderProps } from "./Header";
+import { Box } from "@chakra-ui/react";
 import Header from "./Header";
 
-export type MainProps = HeaderProps & {
+export type MainProps = {
   children: React.ReactNode;
 };
 
-export default function Main({ children, userId }: MainProps) {
+export default function Main({ children }: MainProps) {
   return (
-    <Flex h="100vh" direction={"column"}>
-      {/* TODO: use context */}
-      <Header userId={userId} />
+    <Box h="100vh">
+      <Header />
       <Box
         py={12}
-        mx={{ base: "4", md: "12" }}
+        px={{ base: "4", md: "12" }}
+        mx="auto"
         maxW={1500}
         flex={1}
         alignSelf="center"
       >
         {children}
       </Box>
-    </Flex>
+    </Box>
   );
 }

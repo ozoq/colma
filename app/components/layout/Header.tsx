@@ -3,12 +3,9 @@ import Link from "../elements/shared/Link";
 import SearchBar from "../elements/header/SearchBar";
 import ColorModeToggle from "../elements/header/ColorModeToggle";
 import Logo from "../elements/header/Logo";
-import type { UserButtonsProps } from "../elements/header/UserButtons";
 import UserButtons from "../elements/header/UserButtons";
 
-export type HeaderProps = UserButtonsProps;
-
-export default function Header({ userId }: HeaderProps) {
+export default function Header() {
   return (
     <Box
       borderBottom="1px"
@@ -22,7 +19,7 @@ export default function Header({ userId }: HeaderProps) {
           <SearchBar />
         </Flex>
         <Flex gap="3" alignSelf="end">
-          <UserButtons userId={userId} />
+          <UserButtons />
           <Flex gap="3" alignItems={"center"}>
             <Button
               borderRadius={"full"}
