@@ -1,11 +1,14 @@
 import { Box, Button, Flex, Image, useColorModeValue } from "@chakra-ui/react";
 import Link from "../elements/shared/Link";
 import SearchBar from "../elements/header/SearchBar";
-import ButtonAsLink from "../elements/shared/ButtonAsLink";
 import ColorModeToggle from "../elements/header/ColorModeToggle";
 import Logo from "../elements/header/Logo";
+import type { UserButtonsProps } from "../elements/header/UserButtons";
+import UserButtons from "../elements/header/UserButtons";
 
-export default function Header() {
+export type HeaderProps = UserButtonsProps;
+
+export default function Header({ userId }: HeaderProps) {
   return (
     <Box
       borderBottom="1px"
@@ -19,14 +22,7 @@ export default function Header() {
           <SearchBar />
         </Flex>
         <Flex gap="3" alignSelf="end">
-          <Flex gap="3">
-            <ButtonAsLink borderRadius={"full"} colorScheme="red" to="/login">
-              Log in
-            </ButtonAsLink>
-            <ButtonAsLink borderRadius={"full"} to="/signup">
-              Sign up
-            </ButtonAsLink>
-          </Flex>
+          <UserButtons userId={userId} />
           <Flex gap="3" alignItems={"center"}>
             <Button
               borderRadius={"full"}
