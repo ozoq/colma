@@ -1,8 +1,8 @@
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import CollectionCard from "~/components/views/blocks/CollectionCard";
-import ItemCard from "~/components/views/blocks/ItemCard";
+import CollectionCard from "~/components/collection/CollectionCard";
+import ItemCard from "~/components/item/ItemCard";
 import { getLargestCollections } from "~/database/api/collection";
 import { getRecentItems } from "~/database/api/item";
 

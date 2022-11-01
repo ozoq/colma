@@ -1,9 +1,9 @@
 import { Box, Button, Flex, Image, useColorModeValue } from "@chakra-ui/react";
-import Link from "../elements/shared/Link";
-import SearchBar from "../elements/header/SearchBar";
-import ColorModeToggle from "../elements/header/ColorModeToggle";
-import Logo from "../elements/header/Logo";
-import UserButtons from "../elements/header/UserButtons";
+import SearchBar from "./SearchBar";
+import ColorModeToggle from "./ColorModeToggle";
+import Logo from "./Logo";
+import UserButtons from "./UserButtons";
+import Link from "../common/Link";
 
 export default function Header() {
   return (

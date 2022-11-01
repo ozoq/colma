@@ -10,13 +10,13 @@ import {
 import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
 import { getItemById } from "~/database/api/item";
-import TagsRow from "~/components/elements/item/TagsRow";
-import LikeRow from "~/components/elements/item/LikeRow";
-import CollectionPiece from "~/components/views/blocks/CollectionPiece";
-import ItemDisplay from "~/components/views/blocks/ItemDisplay";
-import Comments from "~/components/views/blocks/Comments";
-import ErrorOther from "~/components/views/errors/ErrorOther";
-import Error404 from "~/components/views/errors/Error404";
+import Comments from "~/components/item/Comments";
+import ErrorOther from "~/components/errors/ErrorOther";
+import Error404 from "~/components/errors/Error404";
+import TagsRow from "~/components/item/TagsRow";
+import LikeRow from "~/components/item/LikeRow";
+import ItemDisplay from "~/components/item/ItemDisplay";
+import CollectionPiece from "~/components/collection/CollectionPiece";
 
 export async function loader({ params }: LoaderArgs) {
   const item = await getItemById(Number(params.id));

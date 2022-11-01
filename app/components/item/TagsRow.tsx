@@ -2,7 +2,7 @@ import type { FlexProps } from "@chakra-ui/react";
 import { Tag } from "@chakra-ui/react";
 import { Flex } from "@chakra-ui/react";
 import { generateTagUrl } from "~/utils/URLs";
-import Link from "../shared/Link";
+import Link from "../common/Link";
 
 export type TagsRowProps = FlexProps & {
   item: {

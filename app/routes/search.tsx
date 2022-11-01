@@ -2,7 +2,7 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import ItemCard from "~/components/views/blocks/ItemCard";
+import ItemCard from "~/components/item/ItemCard";
 import { getRecentItems } from "~/database/api/item";
 
 export async function loader({ request }: LoaderArgs) {

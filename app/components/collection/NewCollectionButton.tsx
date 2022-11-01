@@ -2,7 +2,7 @@ import { PlusSquareIcon } from "@chakra-ui/icons";
 import type { StackProps } from "@chakra-ui/react";
 import { Stack, Text } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
-import ButtonAsLink from "~/components/elements/shared/ButtonAsLink";
+import ButtonAsLink from "../common/ButtonAsLink";
 
 type NewCollectionButtonProps = StackProps;
 

@@ -11,7 +11,7 @@ import {
 import type { LoaderFunction, MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import ChakraStyles from "./lib/chakra/ChakraStyles";
-import Main from "./components/layout/Main";
+import Main from "./components/Main";
 import { authenticator } from "./lib/auth/auth.server";
 import { GlobalContext } from "./hooks/useGlobalContext";
 

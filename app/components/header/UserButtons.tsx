@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import useGlobalContext from "~/hooks/useGlobalContext";
 import { generateUserUrl } from "~/utils/URLs";
-import ButtonAsLink from "../shared/ButtonAsLink";
+import ButtonAsLink from "../common/ButtonAsLink";
 
 export default function UserButtons() {
   const { currentUserId } = useGlobalContext();

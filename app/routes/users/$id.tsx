@@ -3,10 +3,10 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
 import invariant from "invariant";
-import CollectionCard from "~/components/views/blocks/CollectionCard";
-import NewCollectionButton from "~/components/views/blocks/NewCollectionButton";
-import Error404 from "~/components/views/errors/Error404";
-import ErrorOther from "~/components/views/errors/ErrorOther";
+import CollectionCard from "~/components/collection/CollectionCard";
+import NewCollectionButton from "~/components/collection/NewCollectionButton";
+import Error404 from "~/components/errors/Error404";
+import ErrorOther from "~/components/errors/ErrorOther";
 import { getFullUserById } from "~/database/api/user";
 import useResourceAuthorizationStatus from "~/hooks/useResourceAuthorizationStatus";
 

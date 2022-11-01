@@ -1,13 +1,12 @@
 import type { SimpleGridProps } from "@chakra-ui/react";
 import { useColorModeValue } from "@chakra-ui/react";
-import { Grid } from "@chakra-ui/react";
 import { Text } from "@chakra-ui/react";
 import { SimpleGrid } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/react";
 import type { BasicItemType } from "~/database/shapes/basicItem";
 import { useRef } from "react";
 import ItemFieldBasedOnType from "./FieldValueBasedOnType";
-import OverflowableBox from "../shared/OverflowableBox";
+import OverflowableBox from "../common/OverflowableBox";
 
 export type FieldsRowProps = SimpleGridProps & {
   item: Pick<BasicItemType, "fields">;

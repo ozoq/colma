@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import Header from "./Header";
+import Header from "./header/Header";
 
 export type MainProps = {
   children: React.ReactNode;

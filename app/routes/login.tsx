@@ -4,7 +4,7 @@ import {
   AuthForm,
   PasswordInput,
   UsernameInput,
-} from "~/components/views/forms/AuthForm";
+} from "~/components/forms/AuthForm";
 import { authenticate } from "~/lib/auth/auth.server";
 
 export const action: ActionFunction = async ({ request }) => {

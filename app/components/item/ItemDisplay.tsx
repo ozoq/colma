@@ -1,8 +1,8 @@
 import type { BoxProps } from "@chakra-ui/react";
 import { Box, Flex, SimpleGrid, Text } from "@chakra-ui/react";
-import ItemFieldBasedOnType from "~/components/elements/item/FieldValueBasedOnType";
-import BorderedBox from "~/components/elements/shared/BorderedBox";
 import type { BasicItemType } from "~/database/shapes/basicItem";
+import BorderedBox from "../common/BorderedBox";
+import ItemFieldBasedOnType from "./FieldValueBasedOnType";
 
 export type ItemDisplayProps = BoxProps & { item: BasicItemType };
 

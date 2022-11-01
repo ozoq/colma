@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import moment from "moment";
 import { BiSend } from "react-icons/bi";
-import AutosizedTextarea from "~/components/elements/shared/AutosizedTextarea";
 import type { FullItemType } from "~/database/shapes/fullItem";
+import AutosizedTextarea from "../common/AutosizedTextarea";
 
 const comments = [
   {

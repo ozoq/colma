@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Flex,
   FormControl,
@@ -9,7 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
-import BorderedBox from "~/components/elements/shared/BorderedBox";
+import BorderedBox from "../common/BorderedBox";
 
 export function UsernameInput() {
   return (

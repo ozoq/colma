@@ -5,11 +5,11 @@ import { Heading } from "@chakra-ui/react";
 import type { BasicItemType } from "~/database/shapes/basicItem";
 import { useNavigate } from "@remix-run/react";
 import { generateItemUrl } from "~/utils/URLs";
-import Link from "~/components/elements/shared/Link";
-import TagsRow from "~/components/elements/item/TagsRow";
-import FieldsRow from "~/components/elements/item/FieldsRow";
-import LikeRow from "~/components/elements/item/LikeRow";
-import BorderedBox from "~/components/elements/shared/BorderedBox";
+import FieldsRow from "~/components/item/FieldsRow";
+import BorderedBox from "../common/BorderedBox";
+import TagsRow from "./TagsRow";
+import Link from "../common/Link";
+import LikeRow from "./LikeRow";
 
 export type ItemCardProps = BoxProps & {
   item: BasicItemType;
