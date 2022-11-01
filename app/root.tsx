@@ -13,7 +13,7 @@ import { json } from "@remix-run/node";
 import ChakraStyles from "./lib/chakra/ChakraStyles";
 import Main from "./components/layout/Main";
 import { authenticator } from "./lib/auth/auth.server";
-import Header from "./components/layout/Header";
+import { GlobalContext } from "./hooks/useGlobalContext";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -22,14 +22,14 @@ export const meta: MetaFunction = () => ({
 });
 
 export const loader: LoaderFunction = async ({ request }) => {
-  const userId = await authenticator.isAuthenticated(request);
+  const currentUserId = await authenticator.isAuthenticated(request);
   return json({
-    userId,
+    currentUserId,
   });
 };
 
 export default function App() {
-  const { userId } = useLoaderData<typeof loader>();
+  const { currentUserId } = useLoaderData<typeof loader>();
   return (
     <html lang="en">
       <head>
@@ -39,9 +39,15 @@ export default function App() {
       </head>
       <body>
         <ChakraProvider>
-          <Main userId={userId}>
-            <Outlet />
-          </Main>
+          <GlobalContext.Provider
+            value={{
+              currentUserId,
+            }}
+          >
+            <Main>
+              <Outlet />
+            </Main>
+          </GlobalContext.Provider>
         </ChakraProvider>
         <ScrollRestoration />
         <Scripts />

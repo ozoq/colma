@@ -1,13 +1,12 @@
 import { Flex } from "@chakra-ui/react";
+import useGlobalContext from "~/hooks/useGlobalContext";
 import { generateUserUrl } from "~/utils/URLs";
 import ButtonAsLink from "../shared/ButtonAsLink";
 
-export type UserButtonsProps = {
-  userId: number | null;
-};
+export default function UserButtons() {
+  const { currentUserId } = useGlobalContext();
 
-export default function UserButtons({ userId }: UserButtonsProps) {
-  if (userId === null) {
+  if (currentUserId === null) {
     return (
       <Flex gap="3">
         <ButtonAsLink borderRadius={"full"} colorScheme="red" to="/login">
@@ -25,7 +24,7 @@ export default function UserButtons({ userId }: UserButtonsProps) {
       <ButtonAsLink
         borderRadius={"full"}
         colorScheme="red"
-        to={generateUserUrl(userId)}
+        to={generateUserUrl(currentUserId)}
       >
         Profile
       </ButtonAsLink>

@@ -2,27 +2,34 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useCatch, useLoaderData } from "@remix-run/react";
+import invariant from "invariant";
 import CollectionCard from "~/components/views/blocks/CollectionCard";
-import CollectionDisplay from "~/components/views/blocks/CollectionDisplay";
-import ItemCard from "~/components/views/blocks/ItemCard";
 import Error404 from "~/components/views/errors/Error404";
 import ErrorOther from "~/components/views/errors/ErrorOther";
 import { getFullUserById } from "~/database/api/user";
+import useResourceAuthorizationStatus from "~/hooks/useResourceAuthorizationStatus";
 
 export async function loader({ params }: LoaderArgs) {
-  const user = await getFullUserById(Number(params.id));
-  if (!user) {
+  // TODO
+  try {
+    const id = Number(params.id);
+    invariant(!Number.isNaN(id), "id should be a number");
+    const user = await getFullUserById(id);
+    invariant(user !== null, "user not found");
+    return json({ user });
+  } catch {
     throw new Response("Not Found", { status: 404 });
   }
-  return json({ user });
 }
 
 export default function CollectionPage() {
   const { user } = useLoaderData<typeof loader>();
+  const { isOwned } = useResourceAuthorizationStatus(user.id);
+
   return (
     <Box mb={12}>
       <Heading mb={5} textAlign="center" size="lg">
-        User's collections / Your collections (i really need context)
+        {isOwned ? "Your collections" : `Collections by ${user.username}`}
       </Heading>
       <Flex justifyContent={"center"} flexWrap="wrap" gap={6}>
         {user.collections.map((collection) => (
